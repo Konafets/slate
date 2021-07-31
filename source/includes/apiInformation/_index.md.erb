@@ -1,0 +1,156 @@
+# API Information
+
+## Datenstrukturen von ApiInformation
+
+### apiInfoItem
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+App_Name | string  |
+App_Homepage | string |
+App_Email | string |
+App_MajorVersion | integer |
+App_MinorVersion | integer |
+App_BugVersion | integer |
+App_Build | integer |
+App_APISchemaVersion | string |
+App_CopyRight | string |
+App_NewVersion | boolean |
+
+### apisessionInfoItem
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+App_Datenbank | string |
+App_DBSchemaVersion | string |
+Firma_ID | string |
+Benutzer_ID | string |
+User_Name | string |
+UserAccessItemList | [UserAccessItem[]](#UserAccessItem) | neu ab Version 17.2
+
+### UserAccessItem
+<aside class="notice">
+neu ab Version 17.2
+</aside>
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Modul_ID | string |
+ModulName | string |
+Zugriff | boolean |
+Anlegen | boolean |
+Aendern | boolean |
+Loeschen | boolean |
+
+## Funktionsliste von ApiInformation
+
+### apiInfoGet
+Infos zum aktuellen API
+
+Aufruf:
+<pre class="center-column">
+{
+  "apiInfoGet":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "apiInfoGetResponse": {
+    "ReturnData": {
+      "[apiInfoItem](#apiinfoitem)": {}
+    }
+  }
+}
+</pre>
+
+```shell
+curl -X "POST" "http://127.0.0.1:8084/monkeyOfficeConnectJSON" \
+     -H 'Content-Type: text/plain; charset=utf-8' \
+     -u 'user:password' \
+     -d "{ "apiInfoGet": "" }"
+```
+
+```json
+{
+  "apiInfoGetResponse": {
+    "ReturnData": {
+      "apiInfoItem": {
+        "App_Name": "MonKey Office Connect",
+        "App_Homepage": "www.monkey-office.de",
+        "App_Email": "info@monkey-office.de",
+        "App_MajorVersion": 18,
+        "App_MinorVersion": 1,
+        "App_BugVersion": 0,
+        "App_Build": 4,
+        "App_APISchemaVersion": 91,
+        "App_CopyRight": "© 1997-2020 ProSaldo GmbH",
+        "App_NewVersion": true
+      }
+    }
+  }
+}
+```
+
+### apisessionInfoGet
+Infos zur aktuellen Session
+
+Aufruf:
+<pre class="center-column">
+{ "apisessionInfoGet":""}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "apisessionInfoGetResponse": {
+    "ReturnData": {
+      "[apisessionInfoItem](#apisessioninfoitem)": {}
+    }
+  }
+}
+</pre>
+
+```shell
+curl -X "POST" "http://127.0.0.1:8084/monkeyOfficeConnectJSON" \
+     -H 'Content-Type: text/plain; charset=utf-8' \
+     -u 'user:password' \
+     -d "{ "apisessioninfoGet":"" }"
+```
+
+```json
+{
+  "apisessioninfoGetResponse": {
+    "ReturnData": {
+      "apisessionInfoItem": {
+        "App_Datenbank": "cubeSQL@localhost:port:user:Business.sdb",
+        "App_DBSchemaVersion": 91,
+        "Firma_ID": "",
+        "Benutzer_ID": "",
+        "User_Name": "user.name",
+        "UserAccessItemList": {
+          "UserAccessItem": [
+            {
+              "Modul_ID": "apiinfo",
+              "ModulName": "API Information",
+              "Zugriff": true,
+              "Anlegen": false,
+              "Aendern": false,
+              "Loeschen": false
+            },
+            {
+              "Modul_ID": "firmen",
+              "ModulName": "Firmen",
+              "Zugriff": true,
+              "Anlegen": false,
+              "Aendern": false,
+              "Loeschen": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```

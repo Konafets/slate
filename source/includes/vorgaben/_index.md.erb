@@ -1,0 +1,312 @@
+# Vorgaben
+
+## Datenstrukturen von Vorgaben
+
+### Zahlungsart
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Zahlungsart | integer | <ul><li>0 = Keine</li><li>1 = Bar</li><li>2 = Lastschrift</li><li>3 = Kreditkarte</li><li>4 = Überweisung</li><li>5 = Scheck</li><li>7 = EC-Karte</li></ul>
+
+### Zahlungstatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Zahlungstatus | integer | <ul><li>0 = Ohne</li><li>1 = Offen</li><li>2 = Teilweise</li><li>3 = Bezahlt</li></ul>
+
+### Steuergebiet
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Steuergebiet | integer | <ul><li>1 = Inland</li><li>2 = EU-Ausland</li><li>3 = Ausland</li><li>4 = Steuerfrei</li></ul>
+
+### KostenstelleListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Name | string
+Beschreibung | string
+Bemerkung | string
+
+### NummernkreisListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+NKIdent | [NummernkreisIdents](#nummernkreisidents)
+Gruppe | string
+Bereich | string
+Aktuell | string | Beispielwert, ist zeitpunktabhängig, deprecated
+Nachfolger | string | Beispielwert, ist zeitpunktabhängig
+
+### SteuersatzListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Name | string
+Beschreibung | string
+Steuersatz | string
+Gesperrt | boolean
+
+### WaehrungListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Name | string
+Isocode | string
+Kurs | float (0.0)
+
+### VerkaufpreislisteListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+VKPreisliste_ID | string
+Bezeichnung | string
+Beschreibung | string
+Standard | boolean
+BerechnungArt | [Artikelkalkbasis](#artikelkalkbasis)
+MargeArt | [Artikelkalkmarge](#artikelkalkmarge)
+
+### ZahlungsBedingungEinkaufListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Bezeichnung | string
+Zahlungsart | [Zahlungsart](#zahlungsart)
+TageNetto | integer
+TageSkonto | integer
+ProzentSkonto | float (0.0)
+
+### ZahlungsBedingungVerkaufListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Bezeichnung | string
+Zahlungsart | [Zahlungsart](#zahlungsart)
+TageNetto | integer
+TageSkonto | integer
+ProzentSkonto | float (0.0)
+NichtMahnen | boolean
+
+### NummernkreisIdents
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+NummernkreisIdents | integer | <ul><li>1 = Verkauf Angebot</li><li>2 = Verkauf Auftragsbestätigung</li><li>3 = Verkauf Lieferschein</li><li>4 = Verkauf Rechnung</li><li>5 = Verkauf Korrekturrechnung</li><li>6 = Stammdaten Artikel</li><li>7 = Stammdaten Leistung</li><li>8 = Stammdaten Adresse</li><li>9 = Verkauf Abschlagsrechnung</li><li>10 = Einkauf Bestellanfrage</li><li>11 = Einkauf Bestellung</li><li>12 = Einkauf Wareneingang</li><li>13 = Einkauf Eingangsrechnung</li><li>14 = Einkauf Lieferantengutschrift</li><li>15 = Einkauf Rücksendung</li><li>16 = Einkauf Storno</li><li>17 = Verkauf Proformarechnung</li><li>19 = Buchhaltung Buchung</li><li>20 = </li><li>21 = </li></ul>
+
+### DruckFormularGruppen
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+DruckFormularGruppen | integer | <ul><li>1008 = Verkauf</li><li>1014 = Einkauf</li></ul>
+
+### DruckFormularFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Suchtext | string
+DruckformularGruppe | integer
+
+### DruckFormularListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+DruckformularName | string
+DruckformularGruppe | [DruckFormularGruppen](#druckformulargruppen)
+
+### EtikettTags
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+EtikettTags | integer | <ul><li>0 = Kein EtikettTag</li><li>1 = EtikettTag 1</li><li>2 = EtikettTag 2</li><li>4 = EtikettTag 3</li><li>8 = EtikettTag 4</li><li>16 = EtikettTag 5</li><li>32 = EtikettTag 6</li><li>64 = EtikettTag 7</li></ul>
+
+### FestschreibStatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+FestschreibStatus | integer | <ul><li>1 = Erfasst</li><li>2 = Festgeschrieben</li><li>4 = Alle</li></ul>
+
+## Funktionsliste von Vorgaben
+
+### kostenstellenList
+
+Liefert definierte Kostenstellen
+
+Aufruf:
+<pre class="center-column">
+{
+  "kostenstellenList": ""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kostenstellenListResponse": {
+    "ReturnData": {
+      "KostenstelleListItem": [{}, ...]
+    }
+  }
+}
+</pre>
+
+### nummernkreisList
+
+Liefert definierte Nummerkreise
+
+Aufruf:
+<pre class="center-column">
+{
+  "nummernkreisList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "nummernkreisListResponse": {
+    "ReturnData": {
+      "NummernkreisListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### steuersatzList
+
+Liefert definierte Steuersätze
+
+Aufruf:
+<pre class="center-column">
+{
+  "steuersatzList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "steuersatzListResponse": {
+    "ReturnData": {
+      "SteuersatzListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### waehrungList
+
+Liefert definierte Währungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "waehrungList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "waehrungListResponse": {
+    "ReturnData": {
+      "WaehrungListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### preislisteVerkaufList
+
+Liefert definierte VK-Preisliste
+
+Aufruf:
+<pre class="center-column">
+{
+  "preislisteVerkaufList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "preislisteVerkaufListResponse": {
+    "ReturnData": {
+      "VerkaufpreislisteListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### zahlungsbedingungEinkaufList
+
+Liefert definierte Zahlungsbedingungen Einkauf
+
+Aufruf:
+<pre class="center-column">
+{
+  "zahlungsbedingungEinkaufList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "zahlungsbedingungEinkaufListResponse": {
+    "ReturnData": {
+      "ZahlungsBedingungEinkaufListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### zahlungsbedingungVerkaufList
+
+Liefert definierte Zahlungsbedingungen Verkauf
+
+Aufruf:
+<pre class="center-column">
+{
+  "zahlungsbedingungVerkaufList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "zahlungsbedingungVerkaufListResponse": {
+    "ReturnData": {
+      "ZahlungsBedingungVerkaufListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### druckformularFilterTemplate
+
+Liefert Filter für Druckformulare
+
+Aufruf:
+<pre class="center-column">
+{
+  "druckformularFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "druckformularFilterTemplateResponse": {
+    "ReturnData": {
+      "DruckFormularFilter": {...}
+    }
+  }
+}
+</pre>
+
+### druckformularList
+
+Liefert definierte Druckformulare
+
+Aufruf:
+<pre class="center-column">
+{
+  "druckformularList": {
+    "DruckFormularFilter": {} // (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "druckformularListResponse": {
+    "ReturnData": {
+      "DruckFormularListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>

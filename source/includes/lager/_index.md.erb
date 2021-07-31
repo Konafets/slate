@@ -1,0 +1,123 @@
+# Lager
+
+## Datenstrukturen von Lager
+
+### LagerjournalVorgang
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+LagerjournalVorgang | integer | <ul><li>0 = Alle</li><li>1 = Manueller Zugang (Bestand)</li><li>2 = Manueller Abgang (Bestand)</li><li>3 = Manueller Zugang (Bestellt)</li><li>4 = Manueller Abgang (Bestellt)</li><li>5 = Ausgangs-Lieferschein</li><li>6 = Ausgangs-Rechnung</li><li>7 = Eingangs-Warenlieferung</li><li>8 = Eingangs-Rechnung</li><li>9 = Ausgangs-Korrekturrechnung</li><li>10 = Eingangs-Lieferantengutschrift</li><li>11 = Eingangs-Bestellung</li><li>18 = Korrektur Abgang (Bestand)</li><li>19 = Korrektur Abgang (Bestellt)</li><li>20 = Korrektur Zugang (Bestand)</li><li>21 = Korrektur Zugang (Bestellt)</li><li>29 = Stückliste Zugang (Bestand)</li><li>30 = Stückliste Abgang (Bestand)</li></ul>
+
+### LagerjournalFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+LagerjournalVorgang | integer
+Vortragswerte | boolean
+NurLetzeBewegung | boolean
+
+### LagerjournalItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+EingabeDatum | date<br>(yyyy-mm-dd)
+Buchungdatum | date<br>(yyyy-mm-dd)
+LagerjournalVorgang | [LagerjournalVorgang](#lagerjournalvorgang)
+VorgangInfo | string
+Menge | float (0.0)
+Bestellt | float (0.0)
+Bestand | float (0.0)
+
+## Funktionsliste von Lager
+
+### lagerartikelList
+
+Listet alle Lagerartikel
+
+Aufruf:
+<pre class="center-column">
+{
+  "lagerartikelList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "lagerartikelListResponse": {
+    "ReturnData": {
+      "ArtikelListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### lagerjournalFilterTemplate
+
+Vorlage für Lagerjournal-Filter
+
+Aufruf:
+<pre class="center-column">
+{
+  "lagerjournalFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "lagerjournalFilterTemplateResponse": {
+    "ReturnData": {
+      "LagerjournalFilter": {...}
+    }
+  }
+}
+</pre>
+
+### lagerjournalList
+
+Liefert Lagerjournal(mit filter)
+
+Aufruf:
+<pre class="center-column">
+{
+  "lagerjournalList": {
+    "LagerjournalFilter": {} 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "lagerjournalListResponse": {
+    "ReturnData": {
+      "LagerjournalArtikelItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### lagerjournalGet
+
+Liefert Lagerjournal für Artikel (mit ID)
+
+Aufruf:
+<pre class="center-column">
+{
+  "lagerjournalGet": {
+    "Artikel_ID": "...",	// string
+    "NurLetzeBewegung":  ... 	// boolean (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "lagerjournalGetResponse": {
+    "ReturnData": {
+      "LagerjournalItem": {...}
+    }
+  }
+}
+</pre>

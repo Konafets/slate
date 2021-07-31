@@ -1,0 +1,642 @@
+# Verkaufsbelege
+
+## Datenstrukturen von Verkaufsbelege
+
+### VerkaufbelegArt
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+VerkaufbelegArt | integer | <ul><li>1 = Angebot</li><li>2 = Auftragbestätigung</li><li>3 = Lieferschein</li><li>4 = Rechnung</li><li>5 = Abschlagsrechnung</li><li>6 = Korrekturrechnung</li><li>7 = Proforma-Rechnung</li><li>8 = Storno</li></ul>
+
+### VerkaufbelegStatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+VerkaufbelegStatus  | integer | <ul><li>1 = Alle</li><li>2 = Nur Dokumente</li><li>3 = Nur Entwürfe/Vorlagen</li></ul>
+
+### VerkaufbelegDruckstatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+VerkaufbelegDruckstatus  | integer | <ul><li>0 = Alle</li><li>1 = nur ungedruckte</li><li>2 = nur gedruckte</li></ul>
+
+### VerkaufBelegKalkbasis
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+VerkaufBelegKalkbasis  | integer | <ul><li>0 = Netto</li><li>1 = Brutto</li></ul>
+
+### VerkaufbelegPositionArt
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+VerkaufbelegPositionArt  | integer | <ul><li>1 = Stammartikel</li><li>2 = Manueller Artikel</li><li>3 = Textposition</li><li>4 = Zwischensumme</li><li>5 = Seitenumbruch</li><li>6 = Kommentar</li><li>7 = Alternativer Stammartikel</li><li>8 = Alternativer manueller Artikel</li></ul>
+
+### VerkaufbelegFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Suchtext | string
+Adresse_ID | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+Angebot | boolean
+AuftragsBestaetigung | boolean
+Lieferschein | boolean
+ProformaRechnung | boolean
+Rechnung | boolean
+AbschlagsRechnung | boolean
+KorrekturRechnung | boolean
+Storno | boolean
+VerkaufbelegStatus | [VerkaufbelegStatus](#verkaufbelegstatus)
+VerkaufbelegDruckstatus | [VerkaufbelegDruckstatus](#verkaufbelegdruckstatus)
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+AuftragsNr | string
+Referenz | string | Neu ab 16.0.1, ersetzt BestellNr
+Betreff | string
+Anschrift | string
+KopfText | string
+FussText | string
+Waehrung | string
+Bearbeiter | string
+Notiz | string
+EtikettTag_Ohne | boolean
+EtikettTag_1 | boolean
+EtikettTag_2 | boolean
+EtikettTag_3 | boolean
+EtikettTag_4 | boolean
+EtikettTag_5 | boolean
+EtikettTag_6 | boolean
+EtikettTag_7 | boolean
+MitVorbelege | boolean
+MitFolgebelege | boolean
+Zahlungstatus | [Zahlungstatus](#zahlungstatus)
+Versandnummer | string | Neu ab 17.1
+
+### VerkaufbelegListitem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Verkaufbeleg_ID | string
+Adresse_ID | string
+AuftragNr | string
+VerkaufbelegArt | [VerkaufbelegArt](#verkaufbelegart)
+Kunde | string
+Datum | date<br>(yyyy-mm-dd)
+Lieferdatum | date<br>(yyyy-mm-dd)
+GesamtNettoSW | string
+GesamtBruttoSW | string
+Projekt_ID | string
+ProjektNr | string
+
+### VerkaufbelegItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Verkaufbeleg_ID | string
+Adresse_ID | string
+AuftragNr | string
+VerkaufbelegArt | [VerkaufbelegArt](#verkaufbelegart)
+Kunde | string
+Datum | date<br>(yyyy-mm-dd)
+Lieferdatum | date<br>(yyyy-mm-dd)
+GesamtNettoSW | string
+GesamtBruttoSW | string
+Projekt_ID | string
+ProjektNr | string
+Entwurf | boolean
+EtikettTag | [EtikettTags](#etiketttags)
+Zahlungstatus | [Zahlungstatus](#zahlungstatus)
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+BestellNr | string | veraltet ab 16.0.1, entfällt ab 17.0.0
+Referenz | string | Neu ab 16.0.1, (überschreibt BestellNr)
+RechnAnschrift | string
+LieferAnschrift | string
+LaVerwenden | boolean
+Betreff | string
+Anrede | string
+KopfText | string
+FussText | string
+Grussformel | string
+Notizen | string
+Bearbeiter | string
+BearbeiterAngeben | boolean, Neu ab 17.0.0
+Steuergebiet | [Steuergebiet](#steuergebiet)
+VKPreisliste_ID | string | überschreibt Preisliste der Adresse
+Waehrung | string
+GesamtNettoFW | string
+GesamtBruttoFW | string
+GesamtRabattFW | string
+GesamtSteuerFW | string
+GesamtRabattSW | string
+GesamtSteuerSW | string
+Zahlungsbedingungen | string
+SepaMandatReferenz | string
+SepaBankeinzug | date<br>(yyyy-mm-dd) | Neu ab 18.0.0
+Lieferart | string
+Versandnummer | string | Neu ab 17.1.0
+Rabatt | string
+VorbelegIDList | string[] |
+AttachmentIDList | string[] | <i class="label label-info">read-only</i>
+Posten_ID | string
+VerkaufbelegPositionItemList | [VerkaufbelegPositionItem](#verkaufbelegpositionitem)[] | Array vom Typ VerkaufbelegPositionItem
+
+### VerkaufbelegPositionItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Nummer | string
+PosNrManuell | string
+VerkaufbelegPositionArt | [VerkaufbelegPositionArt](#verkaufbelegpositionart)
+Artikel_ID | string
+ArtikelArt | string
+ArtikelNr | string
+Warengruppe | string
+Menge | float (0.0)
+Beschreibung | string
+Bezeichnung | string
+Einheit | string
+Kostenstelle | string
+Rabatt | string
+Steuersatz | string
+Ertragskonto | integer
+EinzelPreisBruttoFW | string
+EinzelPreisNettoFW | string
+GesamtPreisBruttoFW | string
+GesamtPreisNettoFW | string
+GesamtGewicht | float (0.0)
+
+### VerkaufbelegAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+AuftragNr | string
+VerkaufbelegArt | [VerkaufbelegArt](#verkaufbelegart)
+Entwurf | boolean
+EtikettTag | [EtikettTags](#etiketttags)
+Datum | date<br>(yyyy-mm-dd)
+Lieferdatum | date<br>(yyyy-mm-dd)
+BestellNr | string | veraltet ab 16.0.1, entfällt ab 17.0.0
+Referenz | string | Neu ab 16.0.1, (überschreibt BestellNr)
+Projekt_ID | string
+RechnAnschrift | string
+LieferAnschrift | string
+LaVerwenden | boolean
+Betreff | string
+Anrede | string
+KopfText | string
+FussText | string
+Grussformel | string
+Notizen | string
+Bearbeiter | string
+BearbeiterAngeben | boolean
+Steuergebiet | [Steuergebiet](#steuergebiet)
+BerechnungArt | [VerkaufBelegKalkbasis](#verkaufbelegkalkbasis)
+VKPreisliste_ID | string
+Waehrung | string
+Zahlungsbedingungen | string
+SepaMandatReferenz | string
+SepaBankeinzug | date<br>(yyyy-mm-dd) | Neu ab 18.0.0, optional wenn abweichend von Sepamandat-Vorgabe
+Lieferart | string
+Versandnummer | string
+Rabatt | string
+Lagerbuchung | boolean
+VerkaufVorbeleg_ID | string | Wird für Beleg-Weiterleitung benutzt
+VerkaufbelegPositionItemList | [VerkaufbelegPositionAddItem](#verkaufbelegpositionadditem)[] | Array vom Typ VerkaufbelegPositionAddItem
+
+### VerkaufbelegPositionAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Nummer | string
+PosNrManuell | string
+VerkaufbelegPositionArt | [VerkaufbelegPositionArt](#verkaufbelegpositionart)
+Artikel_ID | string
+ArtikelArt | string
+ArtikelNr | string
+Warengruppe | string
+Menge | float (0.0)
+Beschreibung | string
+Bezeichnung | string
+Einheit | string
+Kostenstelle | string
+Rabatt | string
+EinzelPreisBruttoFW | string
+EinzelPreisNettoFW | string
+Ertragskonto | integer
+
+### VerkaufbelegPrintItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Name | string
+Dateigroesse | integer
+Dateityp | string
+DatenBASE64 | string | Raw-Daten in BASE64-Kodierung
+
+## Funktionsliste von Verkaufsbelege
+
+### verkaufbelegFilterTemplate
+
+Vorlage für Verkaufbeleg-Filter
+
+Dient zur Steuerung von verkaufbelegList.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegFilterTemplateResponse": {
+    "ReturnData": {
+      "VerkaufbelegFilter": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegList
+
+Auflistung Verkaufbelege
+
+Über einen optionalen Filter kann die Ausgabe von verkaufbelegList gesteuert werden.
+Ablauf:
+
+1. Datenstruktur VerkaufbelegFilter über verkaufbelegFilterTemplate generieren.
+2. Daten von VerkaufbelegFilter anpassen.
+3. Funktion verkaufbelegList ausführen.
+
+Ergebnis ist eine Liste der vorhandenen Verkaufbelege.
+Ohne Filterübergabe wird ein Filter mit den Standardwerten verwendet. Als Datumsbereich gilt dann i.d.R. das aktuelle Geschäftsjahr.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegList": {
+    "VerkaufbelegFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegListResponse": {
+    "ReturnData": {
+      "VerkaufbelegListitem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### verkaufbelegGet
+
+Liefert Details eines Verkaufbeleg
+
+Es können Details zu einem Verkaufbeleg abgerufen werden.
+Der Beleg wird durch Verkaufbeleg_ID adressiert.
+Diese kann durch verkaufbelegList ermittelt werden.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegGet": {
+    "Verkaufbeleg_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegGetResponse": {
+    "ReturnData": {
+      "VerkaufbelegItem": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegTemplate
+
+liefert VerkaufbelegAddItem als Vorlage
+
+Es wird einen Datenstruktur VerkaufbelegAddItem erzeugt.
+Entsprechend der übergebenen Parameter wird die Datenstruktur vorbelegt.
+Diese Datenstruktur wird für verkaufbelegAdd,verkaufbelegPreview verwendet.
+Zur Ermittelung des Positionspreises wird die Preisliste, welche der Adresse hinterlegt ist, verwendet.
+Optional kann diese durch VKPreisliste_ID überschrieben werden.
+Weitere Hinweise zur Verwendung in diesen Funktionen.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegTemplate": {
+    "VerkaufbelegArt":  ... ,	// integer (optional)
+    "Adresse_ID": "..." ,	// string (optional)
+    "VKPreisliste_ID": "..." ,	// string (optional)
+    "ArtikelAddPostenList": {
+      "ArtikelAddPosten": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegTemplateResponse": {
+    "ReturnData": {
+      "VerkaufbelegAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegDuplikatTemplate
+
+Vorlage für einen duplizierten Verkaufbeleg
+
+Es wird einen Datenstruktur VerkaufbelegAddItem erzeugt.
+Entsprechend der übergebenen Parameter wird die Datenstruktur vorbelegt.
+Diese Datenstruktur wird für verkaufbelegAdd,verkaufbelegPreview verwendet.
+Weitere Hinweise zur Verwendung in diesen Funktionen.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegDuplikatTemplate": {
+    "Verkaufbeleg_ID": "..." ,	// string
+    "Adresse_ID": "..." 	// string (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegDuplikatTemplateResponse": {
+    "ReturnData": {
+      "VerkaufbelegAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegWeiterleitungTemplate
+
+Vorlage für einen weitergeleiteten Verkaufbeleg
+
+Es wird einen Datenstruktur VerkaufbelegAddItem erzeugt.
+Entsprechend der übergebenen Parameter wird die Datenstruktur vorbelegt.
+Diese Datenstruktur wird für verkaufbelegWeiterleitung,verkaufbelegPreview verwendet.
+Weitere Hinweise zur Verwendung in diesen Funktionen.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegWeiterleitungTemplate": {
+    "Verkaufbeleg_ID": "..." ,	// string
+    "VerkaufbelegArt":  ... 	// integer
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegWeiterleitungTemplateResponse": {
+    "ReturnData": {
+      "VerkaufbelegAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegPositionTemplate
+
+liefert VerkaufbelegPositionAddItem als Vorlage
+
+Es wird einen Datenstruktur VerkaufbelegPositionAddItem erzeugt.
+Entsprechend der übergebenen Parameter wird die Datenstruktur vorbelegt.
+Diese Datenstruktur kann zur Ergänzung von VerkaufbelegAddItem verwendet werden.
+Zur Ermittelung des Positionspreises wird die Preisliste, welche der Adresse hinterlegt ist, verwendet.
+Optional kann diese durch VKPreisliste_ID überschrieben werden.
+Weitere Hinweise zur Verwendung in diesen Funktionen.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegPositionTemplate": {
+    "Artikel_ID": "..." ,	// string (optional)
+    "Adresse_ID": "..." ,	// string (optional)
+    "VKPreisliste_ID": "..." ,	// string (optional)
+    "Artikelmenge":  ... 	// integer (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegPositionTemplateResponse": {
+    "ReturnData": {
+      "VerkaufbelegPositionAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegPreview
+
+berechnet einen Verkaufbeleg ohne ihn zu sichern
+
+Diese Funktion wird für interaktive Clients verwendet um eine Voransicht eines anzulegenden Belegs zu erzeugen.
+Ablauf:
+
+1. Datenstruktur VerkaufbelegAddItem über verkaufbelegTemplate, verkaufbelegDuplikatTemplate oder verkaufbelegWeiterleitungTemplate generieren.
+2. Daten von VerkaufbelegAddItem bei Bedarf anpassen.
+3. Funktion verkaufbelegPreview ausführen.
+
+Ergebnis ist eine Datenstruktur VerkaufbelegItem welche einem angelegten Verkaufbeleg entspricht.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegPreview": {
+    "VerkaufbelegAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegPreviewResponse": {
+    "ReturnData": {
+      "VerkaufbelegItem": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegAdd
+
+fügt einen neuen Verkaufbeleg hinzu
+
+Ablauf:
+
+1. Datenstruktur VerkaufbelegAddItem über verkaufbelegTemplate oder verkaufbelegDuplikatTemplate generieren.
+2. Daten von VerkaufbelegAddItem anpassen.
+3. Funktion verkaufbelegAdd ausführen.
+
+Es wird ein Verkaufbeleg angelegt. Bei Erfolg werden Statuscode=0 und eine Insert_ID zurückgeliefert.
+Ein Fehler liefert Statuscode <> 0 und Infos zum aufgetretenen Problem.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegAdd": {
+    "VerkaufbelegAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegWeiterleitung
+
+fügt einen Verkaufbeleg als Weiterleitung hinzu
+
+Ablauf:
+
+1. Datenstruktur VerkaufbelegAddItem über verkaufbelegWeiterleitungTemplate generieren.
+2. Daten von VerkaufbelegAddItem bei Bedarf anpassen (VerkaufVorbeleg_ID darf nicht geändert werden).
+3. Funktion verkaufbelegWeiterleitung ausführen.
+
+Es wird ein Verkaufbeleg angelegt. Bei Erfolg werden Statuscode=0 und eine Insert_ID zurückgeliefert.
+Bei einem Fehler wird Statuscode <> 0 und weitere Infos zum aufgetretenen Fehler geliefert.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegWeiterleitung": {
+    "VerkaufbelegAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegWeiterleitungResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegDelete
+
+löscht einen Verkaufbeleg
+
+Es wird ein Verkaufbeleg gelöscht.
+Der Beleg wird durch Verkaufbeleg_ID adressiert.
+Diese kann durch verkaufbelegList ermittelt werden.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegDelete": {
+    "Verkaufbeleg_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegAddAttachment
+
+fügt ein Attachment einem Verkaufbeleg hinzu
+
+An den Verkaufbeleg wird ein Dokument oder Link als Attachment angefügt.
+
+Ablauf:
+
+1. Den Beleg durch Verkaufbeleg_ID festlegen.
+2. Datenstruktur AttachmentAddItem mit Daten füllen. Es kann entweder DatenBASE64 oder Link gesetzt werden. Die Dokument-Daten DatenBASE64 müssen als Base64 codiert übergeben werden.
+3. Funktion verkaufbelegAddAttachment ausführen.
+
+Bei Erfolg werden Statuscode=0 und eine Insert_ID vom Typ Attachment_ID zurückgeliefert.
+Bei einem Fehler wird Statuscode <> 0 und weitere Infos zum aufgetretenen Fehler geliefert.
+Die Verwaltung der Attachments erfolgt im Modul Attachment-Verwaltung.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegAddAttachment": {
+    "Verkaufbeleg_ID": "..." ,	// string
+    "AttachmentAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegAddAttachmentResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### verkaufbelegPrintPDF
+
+liefert einen Verkaufbeleg als PDF
+
+Für einen Verkaufbeleg wird ein PDF generiert.
+Ablauf:
+
+1. Den Beleg durch Verkaufbeleg_ID festlegen.
+2. Über DruckformularName das gewünschte Druckformular festlegen.
+3. Festlegen ob der Beleg nach erfolgreicher PDF-Ausgabe als gedruckt markiert werden soll .
+4. Funktion verkaufbelegPrintPDF ausführen.
+
+Bei Erfolg wird eine Datenstruktur vom Typ VerkaufbelegPrintItem zurückgeliefert, diese enthält das PDF in Base64-Kodierung.
+
+Aufruf:
+<pre class="center-column">
+{
+  "verkaufbelegPrintPDF": {
+    "Verkaufbeleg_ID": "..." ,	// string
+    "DruckformularName": "..." ,	// string
+    "MarkAsPrinted":  ... 	// boolean (true|false)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "verkaufbelegPrintPDFResponse": {
+    "ReturnData": {
+      "VerkaufbelegPrintItem": {...}
+    }
+  }
+}
+</pre>

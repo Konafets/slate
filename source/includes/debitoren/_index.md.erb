@@ -1,0 +1,494 @@
+# Debitoren
+
+## Datenstrukturen von Debitoren
+
+### DebitorenRechnungArt
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+DebitorenRechnungArt | integer | <ul><li>0 = DebitorRechnung</li><li>1 = DebitorGutschrift</li></ul>
+
+### DebitorenRechnungArtAnzeige
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+DebitorenRechnungArtAnzeige | integer | <ul><li>0 = Alle</li><li>1 = Rechnungen</li><li>2 = Gutschriften</li></ul>
+
+### DebitorenbelegStatus
+neu ab Version 17.0
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+DebitorenbelegStatus | integer | <ul><li>1 = Alle</li><li>2 = Nur Dokumente</li><li>3 = Nur Entwürfe/Vorlagen</li></ul>
+
+### DebitorenRechnungKalkbasis
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+DebitorenRechnungKalkbasis | integer | <ul><li>0 = Netto</li><li>1 = Brutto</li></ul>
+
+### DebitorenRechnungListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Posten_ID | string
+Adresse_ID | string
+RechnungArt | [DebitorenRechnungArt](#debitorenrechnungart)
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | string
+Brutto | string
+Bezahlt | string
+Offen | string
+Projekt_ID | string
+ProjektNr | string
+
+### DebitorenRechnungItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Posten_ID | string
+Adresse_ID | string
+RechnungArt | [DebitorenRechnungArt](#debitorenrechnungart)
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | string
+Brutto | string
+Bezahlt | string
+Offen | string
+Projekt_ID | string
+ProjektNr | string
+Entwurf | boolean | neu ab Version 17.0
+Zahlungsbedingung | string
+Zahlungsart | [Zahlungsart](#zahlungsart)
+TageNetto | integer
+TageSkonto | integer
+ProzentSkonto | float (0.0)
+NichtMahnen | boolean
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+Waehrung | string
+Text | string
+AttachmentIDList | string[] |
+DebitorenRechnungPositionItemList | [DebitorenRechnungPositionItem](#debitorenrechnungpositionitem) | Array vom Typ DebitorenRechnungPositionItem
+
+### DebitorenRechnungPositionItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Position | integer
+Text | string
+BetragBruttoFW | string
+BetragBruttoSW | string
+BetragNettoFW | string
+BetragNettoSW | string
+BetragSteuerFW | string
+BetragSteuerSW | string
+Ertragskonto | integer
+Kostenstelle1 | string
+Kostenstelle2 | string
+Steuersatz | string
+
+### DebitorenRechnungAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+Konto | string
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Text | string
+Referenz | string
+Projekt_ID | string
+Waehrung | string
+BerechnungArt | [DebitorenRechnungKalkbasis](#debitorenrechnungkalkbasis)
+Zahlungsbedingung | string
+Zahlungsart | Zahlungsart
+TageNetto | integer
+TageSkonto | integer
+ProzentSkonto | float (0.0)
+NichtMahnen | boolean
+DebitorenRechnungPositionItemList | [DebitorenRechnungPositionAddItem](#debitorenrechnungpositionadditem)[] | Array vom Typ DebitorenRechnungPositionAddItem
+
+### DebitorenRechnungPositionAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+BetragBruttoFW | string
+BetragNettoFW | string
+Ertragskonto | integer
+Kostenstelle1 | string
+Kostenstelle2 | string
+Steuersatz | string
+
+### DebitorenRechnungFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+Rechnungsart | [DebitorenRechnungArtAnzeige](#debitorenrechnungartanzeige)
+RechnungsNr | string
+Text | string
+Debitorenkonto | integer
+Erfolgskonto | integer
+Referenz | string
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+DebitorenbelegStatus | [DebitorenbelegStatus](#debitorenbelegstatus)
+
+### DebitorenZahlungListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Zahlung_ID | string
+Adresse_ID | string
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | string
+Zahlung | string
+Minderung | string
+
+### DebitorenZahlungItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Zahlung_ID | string
+Adresse_ID | string
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | string
+Zahlung | string
+Minderung | string
+Zahlungsart | [Zahlungsart](#zahlungsart)
+D-Konto | string
+ZahlungSW | string
+MinderungSW | string
+Referenz | string
+Text | string
+Waehrung | string
+
+### DebitorenZahlungFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+RechnungsNr | string
+Text | string
+Referenz | string
+
+## Funktionsliste von Debitoren
+
+### debitorenRechnungFilterTemplate
+
+Vorlage für Filter Debitorenrechnungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenRechnungFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenRechnungFilterTemplateResponse": {
+    "ReturnData": {
+      "DebitorenRechnungFilter": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenRechnungList
+
+Auflistung Debitorenrechnungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenRechnungList": {
+    "DebitorenRechnungFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenRechnungListResponse": {
+    "ReturnData": {
+      "DebitorenRechnungListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### debitorenRechnungGet
+
+Liefert Details einer Debitorenrechnung
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenRechnungGet": {
+    "Posten_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenRechnungGetResponse": {
+    "ReturnData": {
+      "DebitorenRechnungItem": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenRechnungTemplate
+
+liefert DebitorenRechnungAddItem als Vorlage
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenRechnungTemplate": {
+    "Adresse_ID": "..." ,	// string (optional)
+    "Datum": "..." ,	// date (yyyy-mm-dd) (optional)
+    "PositionenAnzahl":  ... 	// integer (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenRechnungTemplateResponse": {
+    "ReturnData": {
+      "DebitorenRechnungAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenRechnungPreview
+
+berechnet eine neue Debitorenrechnung, ohne speichern
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenRechnungPreview": {
+    "DebitorenRechnungAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenRechnungPreviewResponse": {
+    "ReturnData": {
+      "DebitorenRechnungItem": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenRechnungAdd
+
+fügt eine neue Debitorenrechnung hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenRechnungAdd": {
+    "DebitorenRechnungAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenRechnungAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenRechnungDelete
+
+löscht eine vorhandene Debitorenrechnung
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenRechnungDelete": {
+    "Posten_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenRechnungDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenRechnungAddAttachment
+
+fügt ein Attachment einer Debitorenrechnung hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenRechnungAddAttachment": {
+    "Posten_ID": "..." ,	// string
+    "AttachmentAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenRechnungAddAttachmentResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenZahlungFilterTemplate
+
+Vorlage für Filter Debitorenzahlungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenZahlungFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenZahlungFilterTemplateResponse": {
+    "ReturnData": {
+      "DebitorenZahlungFilter": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenZahlungList
+
+Auflistung Debitorenzahlungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenZahlungList": {
+    "DebitorenZahlungFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenZahlungListResponse": {
+    "ReturnData": {
+      "DebitorenZahlungListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### debitorenZahlungGet
+
+Liefert Details einer Debitorenzahlung
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenZahlungGet": {
+    "Zahlung_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenZahlungGetResponse": {
+    "ReturnData": {
+      "DebitorenZahlungItem": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenZahlungCreate
+
+erzeugt Zahlung für Debitorenrechnung
+
+Es wird für einen vorhandenen Debitoren-Rechnung eine Zahlung angelegt.
+Ablauf:
+
+1. Posten_ID ermitteln für welchen eine Zahlung angelegt werden soll( z.B. über debitorenRechnungList).
+2. Funktion debitorenZahlungCreate mit Parameter Posten_ID,Datum,Konto,Zahlungsart ausführen.
+Es wird eine Zahlung angelegt, Rückgabe InsertID oder Fehlerstatus.
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenZahlungCreate": {
+    "Posten_ID": "..." ,	// string
+    "Datum": "..." ,	// date (yyyy-mm-dd)
+    "Konto":  ... ,	// integer
+    "Zahlungsart":  ... 	// Zahlungsart, optional, default ist Angabe im Posten
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenZahlungCreateResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### debitorenZahlungDelete
+
+löscht eine vorhandene Debitorenzahlung
+
+Aufruf:
+<pre class="center-column">
+{
+  "debitorenZahlungDelete": {
+    "Zahlung_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "debitorenZahlungDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>

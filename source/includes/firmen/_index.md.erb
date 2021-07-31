@@ -1,0 +1,178 @@
+# Firmen
+
+<%= partial "includes/firmen/datastructures/firmaListItem.md.erb" %>
+
+## Funktionsliste von Firmen
+
+### firmaList
+
+Listet verfügbare Firmen
+
+Aufruf:
+<pre class="center-column">
+{
+  "firmaList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "firmaListResponse": {
+    "ReturnData": {
+      "FirmaListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+```shell
+curl -X "POST" "<%= config[:url] %>" \
+     -H 'Content-Type: application/json; charset=utf-8' \
+     -u 'user:password' \
+     -d $'{ "firmaList": "" }'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "firmaListResponse": {
+    "ReturnData": {
+      "FirmaListItem": [
+        {
+          "Firma_ID": "<%= config[:companyId1] %>",
+          "Bezeichnung": "ACME",
+          "Zusatz": "Inc."
+        },
+        {
+          "Firma_ID": "<%= config[:companyId2] %>",
+          "Bezeichnung": "FooBarBaz",
+          "Zusatz": "GmbH"
+        }
+      ]
+    }
+  }
+}
+```
+
+### firmaGet
+
+Infos zur aktuell selektierten Firma
+
+Aufruf:
+<pre class="center-column">
+{
+  "firmaGet":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "firmaGetResponse": {
+    "ReturnData": {
+      "FirmaItem": {...}
+    }
+  }
+}
+</pre>
+
+```shell
+curl -X "POST" "<%= config[:url] %>" \
+     -H 'mbl-ident: 02406B7F374E1C9F0D8E2A85' \
+     -H 'Content-Type: text/plain; charset=utf-8' \
+     -u 'user:password' \
+     -d $'{"firmaGet": ""}'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "firmaGetResponse": {
+    "ReturnData": {
+      "FirmaItem": {
+        "Firma_Name": "ACME",
+        "Firma_Zusatz": "Inc.",
+        "Firma_Geschaeftsfuehrer": "Road Runner",
+        "Firma_Strasse": "",
+        "Firma_Plz": "12345",
+        "Firma_Ort": "Musterstadt",
+        "Firma_Telefon": "",
+        "Firma_Telefax": "",
+        "Firma_Email": "info@acme.com",
+        "Firma_Internet": "acme.com",
+        "Firma_RegisterGericht": "",
+        "Firma_RegisterNummer": "",
+        "Firma_BankIBAN": "DE75 5121 0800 1245 1261 99",
+        "Firma_BankBIC": "JAGUDE31",
+        "Firma_BankName": "Geschäftskonto",
+        "Firma_UStPflicht": true,
+        "Firma_UStIDNummer": "DE111111111",
+        "Firma_Kontenplan": "DATEV SKR 04 (EÜ)",
+        "Firma_GEArt": 2,
+        "Firma_FALand": "Deutschland",
+        "Firma_FANummer": "0000",
+        "Firma_FAName": "Musterstadt",
+        "Firma_FAZusatz": "",
+        "Firma_FAStrasse": "Musterstadt Str. 101",
+        "Firma_FAPlz": "12345",
+        "Firma_FAOrt": "Musterstadt",
+        "Firma_FABundesland": "Bremen",
+        "Firma_FAStNrPrefix": "00",
+        "Firma_FASteuernummer": "00 000 00000",
+        "Firma_FAStNrPostfix": "00",
+        "Firma_FATelefon": "0000 000-0",
+        "Firma_FATelefax": "0000 000-0",
+        "Firma_FABankName": "Bundesbank",
+        "Firma_FABankIBAN": "",
+        "Firma_FABankBIC": "",
+        "Firma_FAMemo": "",
+        "Firma_SBName": "",
+        "Firma_SBZusatz": "",
+        "Firma_SBStrasse": "",
+        "Firma_SBPlz": "",
+        "Firma_SBOrt": "",
+        "Firma_SBTelefon": "",
+        "Firma_SBTelefax": "",
+        "Firma_SBEmail": "",
+        "Firma_SBBankName": "",
+        "Firma_SBBankIBAN": "",
+        "Firma_SBBankBIC": "",
+        "Firma_SBMemo": "",
+        "Firma_FALandLSt": "Deutschland",
+        "Firma_FANummerLSt": "0000",
+        "Firma_FANameLSt": "Musterstadt",
+        "Firma_FAZusatzLSt": "",
+        "Firma_FAStrasseLSt": "Musterstadt Str. 101",
+        "Firma_FAPlzLSt": "12345",
+        "Firma_FAOrtLSt": "Musterstadt",
+        "Firma_FABundeslandLSt": "Bremen",
+        "Firma_FAStNrPrefixLSt": "00",
+        "Firma_FASteuernummerLSt": "00 000 00000",
+        "Firma_FAStNrPostfixLSt": "00",
+        "Firma_FATelefonLSt": "0000 000-0",
+        "Firma_FATelefaxLSt": "0000 000-0",
+        "Firma_FABankNameLSt": "",
+        "Firma_FABankIBANLSt": "",
+        "Firma_FABankBICLSt": "",
+        "Firma_FAMemoLSt": "",
+        "Firma_LGName": "",
+        "Firma_LGZusatz": "",
+        "Firma_LGVerwalter": "",
+        "Firma_LGStrasse": "",
+        "Firma_LGPlz": "",
+        "Firma_LGOrt": "",
+        "Firma_LGTelefon": "",
+        "Firma_LGTelefax": "",
+        "Firma_LGEmail": "",
+        "DatumVon": "1970-01-01",
+        "DatumBis": "1999-12-31"
+      }
+    }
+  }
+}
+```
+
+Die ID der Firma kann über die Funktion [firmaList](#firmalist) bezogen werden und wird im Header als `mbl-ident` übergeben.

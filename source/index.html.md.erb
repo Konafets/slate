@@ -1,0 +1,130 @@
+---
+title: MonKey Office Connect JSON-API Referenz
+
+language_tabs: # must be one of https://git.io/vQNgJ
+  - shell: cURL
+  - php
+
+toc_footers:
+  -
+
+includes:
+  - firmen/index
+  - vorgaben/index
+  - adressen/index
+  - artikelUndLeistungen/index
+  - lager/index
+  - verkaufsbelege/index
+  - einkaufsbelege/index
+  - buchungen/index
+  - debitoren/index
+  - kreditoren/index
+  - offenePosten/index
+  - projekte/index
+  - attachmentVerwaltung/index
+  - apiInformation/index
+
+search: true
+
+code_clipboard: true
+---
+
+# MonKey Office Connect JSON-API Referenz
+
+Version: 18.1.0 / 30.07.21
+
+# Changelog
+
+Wichtige Änderungen/Ergänzungen/Fehlerbeseitigungen API Version 18
+
+- **Allgemein**
+	- [18.1.0] Unterstützung cubeSQL-Server 5.7, 5.8
+	- [18.0.0] Änderung DB/API Schema auf Version 91
+
+- **Firmen**
+	- [18.0.0] Datentyp FirmaItem alle Angaben zu Kontonummer,BLZ entfallen, Ausgabe von IBAN und BIC
+
+- **Adressen**
+	- [18.1.0] Filterparameter matchcode in adresseList ohne Funktion - korrigiert
+	- [18.0.0] Unterstützung RA_Strasse, RA_StrasseNr in adresseList
+
+- **Artikel und Leistungen**
+	- [18.0.0] Fehler Artikelbilder werden in artikelModify gelöscht -- beseitigt
+
+- **Verkaufsbelege**
+	- [18.0.0] Neuer (optionaler) Parameter SepaBankeinzug in VerkaufbelegItem,VerkaufbelegAddItem
+
+- **Buchungen**
+	- [18.1.0] Ausgabe Journalzeilen in Funktion buchungGet
+
+# Überblick
+
+MonKey Office Connect (nachfolgend Connect genannt) ermöglicht dir als Entwickler oder Betreiber einer externen Software den Zugriff auf MonKey Office-Funktionen unter Umgehung der MonKey Office-Benutzeroberfläche. Connect kommuniziert dafür direkt mit der MonKey Office-Datenbank auf einem cubeSQL-Server. Der Zugriff über Connect erlaubt die Abfrage von Daten, das Filtern bestimmter Informationen, das Ändern bestehender Datensätze und das Anlegen neuer Datensätze.
+
+Connect verwendet zur Sicherung der Datenbankkonsistenz die gleiche Geschäftslogik wie MonKey Office. Welche Bereiche von MonKey Office über Connect zugänglich sind, ist vordefiniert und wird in der Dokumentation beschrieben. Der Zugriff auf Connect erfolgt über das Übertragungsprotokoll HTTP bzw. HTTPS.
+
+Somit kannst du selbst Anwendungen oder Middleware-Lösungen entwickeln, welche über Connect mit einer MonKey Office-Datenbank interagieren. Dabei lassen sich Daten neu anlegen, ändern oder löschen, ebenso kannst du Daten abfragen, um sie in der anderen Software auszuwerten oder an bestehende Softwaresysteme (z. B. Webanwendungen, mobile Anwendungen, Shop- oder Kassensoftware) weiterzuleiten.
+
+<%= image_tag "images/architecture.png" %>
+
+### Was ist es nicht
+MonKey Office Connect ist keine Anwendung, welche mit wenigen Klicks in bestehende Shopsysteme, Kassensoftware oder Webapplikationen integriert werden kann. ProSaldo liefert also keine fertige Kommunikationslösung für bestimmte externe Tools.
+
+Die konkrete Implementierung einer Schnittstelle zu einem sonstigen System bleibt dem Anwender vorbehalten (bzw. muss extern beauftragt werden). Die Funktionalität von Connect kann vom Anwender nicht erweitert werden. Diesbezügliche Wünsche und Anregungen werden von uns gern entgegengenommen, diskutiert und eventuell in neuere Versionen integriert.
+
+### Wie funktioniert das
+Ein kleines Beispiel: Du möchtest Adressen für MonKey Office über ein Webformular erfassen und bestehende Adressen ändern. Dazu implementierst du eine kleine Webanwendung, welche z. B. über die von ProSaldo mitgelieferte PHP-Bibliothek auf MonKey Office Connect zugreift.
+
+Die Webanwendung ruft die PHP-Funktion auf, welche eine Liste von Adressen für eine bestimmte Firma aus der MonKey Office-Datenbank abruft. Die PHP-Funktion sendet eine entsprechende Anfrage zu Connect. Dieses prüft die übermittelten Login- und Firmeninformationen der Webanwendung und lädt die angeforderte Adressliste aus der MonKey Office-Datenbank. Anschließend sendet Connect die Adressliste als Ergebnis zur Webanwendung. Diese könnte nun die Adressliste darstellen. In einem nächsten Schritt kann die Webanwendung zu einzelnen Adressen Detailinformationen abrufen, Daten modifizieren, löschen oder hinzufügen.
+
+# Einleitung API Referenz
+
+<aside class="notice">
+Die angegebene IP-Adressen/Ports sind von den aktuellen Einstellungen abhängig. (Siehe Bereich Status bzw. Einstellungen).
+</aside>
+
+Für den Zugriff muss ein Benutzer mit Passwort in Monkey Office angelegt und mit entsprechenden Zugriffsrechten versehen werden.
+
+<aside class="warning">
+Admin-User können nicht über die API zugreifen, es empfiehlt sich einen eigenen Nutzer nur für die API anzulegen. Diesem Nutzer ist dann für die gewünschten Firmen über "Eingeschränkter Zugriff" die Benutzung von MonKey Office Connect zu erlauben.
+</aside>
+
+Funktionsaufruf erfolgt via [http(s)://ipdresse:port/monkeyOfficeConnectJSON]().
+Die Daten werden per POST übertragen. Alle Zugriffe erfolgen zustandsfrei. Es können beliebige Programmiersprachen, welche Kommunikationsmöglichkeiten via HTTP/HTTPS unterstützen, genutzt werden.
+Für eine vereinfachte Benutzung steht eine PHP-Library für den Zugriff via PHP zur Verfügung. Diese kapselt die eigentliche Kommunikation.
+
+<aside class="warning">
+Diese PHP-Bibliothek ist von der jeweiligen API-Version abhängig. Geänderte Funktionalitäten können zu Inkompatiblitäten mit vorangegangenen Versionen führen.
+</aside>
+
+Die meisten Funktionen arbeiten nur mit einem definierten Firma-Key. Dieser wird beim Aufruf der Funktion im HTTP-Header (Bezeichner ist `mbl-ident`) übermittelt. Informationen zur Verwendung findet man in den mitgelieferten Beispiel-Anwendungen. Der Firma-Key wird über die API-Funktion `firmaList` im Modul `Firmen` ermittelt.
+
+Im Allgemeinen ist der Ablauf der Benutzung in allen Modulen gleich. Es stehen Funktionen zum Anlegen, Löschen, Auflisten (optional gefiltert) von Datensätzen zur Verfügung. Zum vereinfachten Anlegen von Datensätzen können Templates abgerufen und mit den gewünschten Daten gefüllt werden. Einige Bereiche besitzen auch Funktionen zum modifizieren von Datensätzen bzw. zur Erzeugung von Vorschauansichten.
+Stellvertretend sind diese Abläufe im Modul Verkaufsbelege genauer beschrieben.
+(Siehe zum Beispiel `Verkaufsbelege->verkaufbelegAdd`).
+
+Mit Hilfe des integrierten Testclient können alle Funktionen simuliert werden. Das ist, gerade für den Einstieg, sehr hilfreich. Der Testclient zeigt die Datenstrukturen für Funktionsaufrufe, und die resultierenden Response-Werte. Bei Problemen kann so der Datenfluss analysiert werden. Bei einigen Funktionen werden auch Testdaten generiert um die Einarbeitung zu vereinfachen.
+
+Um diese Referenz im Browser zu öffnen diese URL verwenden: [http://127.0.0.1:8084/jsonhelp](http://127.0.0.1:8084/jsonhelp)
+
+Weiterführende Informationen finden Sie in der [Onlinehilfe MonKey_Office Connect](http://www.monkey-office.de/doc/MonKey_Office_Connect.html)
+
+# Globale Datenstrukturen
+
+## ReturnStatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Statuscode | [Statuscode](#statuscode)
+StatustextItem | [StatustextItem](#statustextitem)[] | optional
+Insert_ID | string | optional
+
+
+## Statuscode
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Statuscode | integer | <ul><li>0=alles OK</li><li>1=allgemeiner Fehler</li><li>2=Fehler Zugriffsrechte</li><li>3=Funktion unbekannt</li><li>4=Parameterfehler</li></ul>
+
+## StatustextItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Statustext | string

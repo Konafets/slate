@@ -1,0 +1,486 @@
+# Kreditoren
+
+## Datenstrukturen von Kreditoren
+
+### KreditorenRechnungArt
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+KreditorenRechnungArt | integer | <ul><li>2 = KreditorRechnung</li><li>3 = KreditorGutschrift</li></ul>
+
+### KreditorenRechnungArtAnzeige
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+KreditorenRechnungArtAnzeige | integer | <ul><li>0 = Alle</li><li>1 = Rechnungen</li><li>2 = Gutschriften</li></ul>
+
+### KreditorenRechnungKalkbasis
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+KreditorenRechnungKalkbasis | integer | <ul><li>0 = Netto</li><li>1 = Brutto</li></ul>
+
+### KreditorenRechnungListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Posten_ID | string
+Adresse_ID | string
+RechnungArt | [KreditorenRechnungArt](#kreditorenrechnungart)
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | string
+Brutto | string
+Bezahlt | string
+Offen | string
+Projekt_ID | string
+ProjektNr | string
+
+### KreditorenRechnungItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Posten_ID | string
+Adresse_ID | string
+RechnungArt | [KreditorenRechnungArt](#kreditorenrechnungart)
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | string
+Brutto | string
+Bezahlt | string
+Offen | string
+Projekt_ID | string
+ProjektNr | string
+Entwurf | boolean | neu ab Version 17.0
+Zahlungsbedingung | string
+Zahlungsart | [Zahlungsart](#zahlungsart)
+TageNetto | integer
+TageSkonto | integer
+ProzentSkonto | float (0.0)
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+Waehrung | string
+Text | string
+AttachmentIDList | string[] |
+KreditorenRechnungPositionItemList | [KreditorenRechnungPositionItem](#kreditorenrechnungpositionitem)[] | Array vom Typ KreditorenRechnungPositionItem
+
+### KreditorenRechnungPositionItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Position | integer
+Text | string
+BetragBruttoFW | string
+BetragBruttoSW | string
+BetragNettoFW | string
+BetragNettoSW | string
+BetragSteuerFW | string
+BetragSteuerSW | string
+Aufwandskonto | integer
+Kostenstelle1 | string
+Kostenstelle2 | string
+Steuersatz | string
+
+### KreditorenRechnungAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+Konto | integer
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Text | string
+Referenz | string
+Projekt_ID | string
+Waehrung | string
+BerechnungArt | [KreditorenRechnungKalkbasis](#kreditorenrechnungkalkbasis)
+Zahlungsbedingung | string
+Zahlungsart | [Zahlungsart](#zahlungsart)
+TageNetto | integer
+TageSkonto | integer
+ProzentSkonto | float (0.0)
+KreditorenRechnungPositionItemList | [KreditorenRechnungPositionAddItem](#kreditorenrechnungpositionadditem)[] | Array vom Typ KreditorenRechnungPositionAddItem
+
+### KreditorenRechnungPositionAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+BetragBruttoFW | string
+BetragNettoFW | string
+Aufwandskonto | integer
+Kostenstelle1 | string
+Kostenstelle2 | string
+Steuersatz | string
+
+### KreditorenRechnungFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+Rechnungsart | [KreditorenRechnungArtAnzeige](#kreditorenrechnungartanzeige)
+RechnungsNr | string
+Text | string
+Kreditorenkonto | integer
+Aufwandkonto | integer
+Referenz | string
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+KreditorenbelegStatus | [KreditorenbelegStatus](#kreditorenbelegstatus)
+
+### KreditorenZahlungListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Zahlung_ID | string
+Adresse_ID | string
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | string
+Zahlung | string
+Minderung | string
+
+### KreditorenZahlungItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Zahlung_ID | string
+Adresse_ID | string
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | string
+Zahlung | string
+Minderung | string
+Zahlungsart | [Zahlungsart](#zahlungsart)
+K-Konto | string
+ZahlungSW | string
+MinderungSW | string
+Referenz | string
+Text | string
+Waehrung | string
+
+### KreditorenZahlungFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+RechnungsNr | string
+Text | string
+Referenz | string
+
+## Funktionsliste von Kreditoren
+
+### kreditorenRechnungFilterTemplate
+
+Vorlage für Filter Kreditorenrechnungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenRechnungFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenRechnungFilterTemplateResponse": {
+    "ReturnData": {
+      "KreditorenRechnungFilter": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenRechnungList
+
+Auflistung Kreditorenrechnungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenRechnungList": {
+    "KreditorenRechnungFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenRechnungListResponse": {
+    "ReturnData": {
+      "KreditorenRechnungListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### kreditorenRechnungGet
+
+Liefert Details einer Kreditorenrechnung
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenRechnungGet": {
+    "Posten_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenRechnungGetResponse": {
+    "ReturnData": {
+      "KreditorenRechnungItem": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenRechnungTemplate
+
+liefert KreditorenRechnungAddItem als Vorlage
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenRechnungTemplate": {
+    "Adresse_ID": "..." ,	// string (optional)
+    "Datum": "..." ,	// date (yyyy-mm-dd) (optional)
+    "PositionenAnzahl":  ... 	// integer (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenRechnungTemplateResponse": {
+    "ReturnData": {
+      "KreditorenRechnungAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenRechnungPreview
+
+berechnet eine neue Kreditorenrechnung, ohne speichern
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenRechnungPreview": {
+    "KreditorenRechnungAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenRechnungPreviewResponse": {
+    "ReturnData": {
+      "KreditorenRechnungItem": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenRechnungAdd
+
+fügt eine neue Kreditorenrechnung hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenRechnungAdd": {
+    "KreditorenRechnungAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenRechnungAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenRechnungDelete
+
+löscht eine vorhandene Kreditorenrechnung
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenRechnungDelete": {
+    "Posten_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenRechnungDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenRechnungAddAttachment
+
+fügt ein Attachment einer Kreditorenrechnung hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenRechnungAddAttachment": {
+    "Posten_ID": "..." ,	// string
+    "AttachmentAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenRechnungAddAttachmentResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenZahlungFilterTemplate
+
+Vorlage für Filter Kreditorenzahlungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenZahlungFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenZahlungFilterTemplateResponse": {
+    "ReturnData": {
+      "KreditorenZahlungFilter": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenZahlungList
+
+Auflistung Kreditorenzahlungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenZahlungList": {
+    "KreditorenZahlungFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenZahlungListResponse": {
+    "ReturnData": {
+      "KreditorenZahlungListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### kreditorenZahlungGet
+
+Liefert Details einer Kreditorenzahlung
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenZahlungGet": {
+    "Zahlung_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenZahlungGetResponse": {
+    "ReturnData": {
+      "KreditorenZahlungItem": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenZahlungCreate
+
+erzeugt Zahlung für Kreditorenrechnung
+
+Es wird für eine vorhandenen Kreditoren-Rechnung eine Zahlung angelegt.
+Ablauf:
+
+1. `Posten_ID` ermitteln für welchen eine Zahlung angelegt werden soll (z.B. über kreditorenRechnungList).
+2. Funktion kreditorenZahlungCreate mit Parameter `Posten_ID`, `Datum`, `Konto`, `Zahlungsart` ausführen.
+
+Es wird eine Zahlung angelegt, Rückgabe InsertID oder Fehlerstatus.
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenZahlungCreate": {
+    "Posten_ID": "..." ,	// string
+    "Datum": "..." ,	// date (yyyy-mm-dd)
+    "Konto":  ... ,	// integer
+    "Zahlungsart":  ... 	// Zahlungsart, optional, default ist Angabe im Posten
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenZahlungCreateResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### kreditorenZahlungDelete
+
+löscht eine vorhandene Kreditorenzahlung
+
+Aufruf:
+<pre class="center-column">
+{
+  "kreditorenZahlungDelete": {
+    "Zahlung_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "kreditorenZahlungDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>

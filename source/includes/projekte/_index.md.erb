@@ -1,0 +1,161 @@
+# Projekte
+
+Dieses Modul erlaubt das Auflisten und Abrufen (vorhandener) Projekt. Über Projekte können z.B. Belege für Einkauf/Verkauf organisiert werden.
+Zur Verwendung von Projekten ist eine PRO-Lizenz für Monkey Office notwendig.
+Ohne PRO-Lizenz lassen sich Datensätze, welche Projekten zugeordnet sind, nicht mehr weiterverarbeiten!
+
+## Datenstrukturen von Projekte
+
+### ProjektStatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+ProjektStatus | integer | <ul><li>0 = </li><li>1 = Akquise</li><li>2 = Beauftragt</li><li>3 = Vorbereitung</li><li>4 = In Arbeit</li><li>5 = Abrechnen</li><li>6 = Abgeschlossen</li></ul>
+
+### ProjektListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Projekt_ID | string
+ProjektNr | string
+Bezeichnung | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+ProjektStatus | [ProjektStatus](#projektstatus)
+
+### ProjektItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Projekt_ID | string
+ProjektNr | string
+Bezeichnung | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+ProjektStatus | [ProjektStatus](#projektstatus)
+Beschreibung | string
+Bearbeiter | string
+Notizen | string
+EtikettTag | [EtikettTags](#etiketttags)
+AttachmentIDList | string[] | <i class="label label-info">read-only</i>
+
+### ProjektFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Suchtext | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+ProjektNr | string
+Bezeichnung | string
+KeinStatus | boolean
+Akquise | boolean
+Beauftragt | boolean
+Vorbereitung | boolean
+InArbeit | boolean
+Abrechnen | boolean
+Abgeschlossen | boolean
+Beschreibung | string
+Bearbeiter | string
+Notizen | string
+EtikettTag_Ohne | boolean
+EtikettTag_1 | boolean
+EtikettTag_2 | boolean
+EtikettTag_3 | boolean
+EtikettTag_4 | boolean
+EtikettTag_5 | boolean
+EtikettTag_6 | boolean
+EtikettTag_7 | boolean
+
+## Funktionsliste von Projekte
+
+### projektFilterTemplate
+
+Vorlage für Projekt-Filter
+
+Aufruf:
+<pre class="center-column">
+{
+  "projektFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "projektFilterTemplateResponse": {
+    "ReturnData": {
+      "ProjektFilter": {...}
+    }
+  }
+}
+</pre>
+
+### projektList
+
+Listet vorhandene Projekte
+
+Aufruf:
+<pre class="center-column">
+{
+  "projektList": {
+    "ProjektFilter":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "projektListResponse": {
+    "ReturnData": {
+      "ProjektListItem": {...}
+    }
+  }
+}
+</pre>
+
+### projektGet
+
+Liefert ein Projekt für die ID
+
+Aufruf:
+<pre class="center-column">
+{
+  "projektGet": {
+    "Projekt_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "projektGetResponse": {
+    "ReturnData": {
+      "ProjektItem": {...}
+    }
+  }
+}
+</pre>
+
+### projektAddAttachment
+
+fügt ein Attachment einem Projekt hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "projektAddAttachment": {
+    "Projekt_ID": "..." ,	// string
+    "AttachmentAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "projektAddAttachmentResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>

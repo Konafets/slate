@@ -1,0 +1,710 @@
+# Artikel und Leistungen
+
+## Datenstrukturen von Artikel und Leistungen
+
+### StueckListeTyp
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+StueckListeTyp | integer | <ul><li>0 = kein Stückliste</li><li>1 = Fertigungsartikel</li><li>2 = Artikelset</li></ul>
+
+### Artikelkalkaufwand
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Artikelkalkaufwand | integer | <ul><li>1 = Betrag</li><li>2 = Prozent</li></ul>
+
+### Artikelkalkbasis
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Artikelkalkbasis | integer | <ul><li>1 = Netto</li><li>2 = Brutto</li></ul>
+
+### Artikelkalkmarge
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Artikelkalkmarge | integer | <ul><li>1 = Betrag</li><li>2 = Prozent</li><li>3 = VKGesamt</li></ul>
+
+### Artikelpreis
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Artikelpreis | integer | <ul><li>0 = Netto</li><li>1 = Brutto</li></ul>
+
+### Artikelart
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Artikelart | integer | <ul><li>1 = Artikel</li><li>2 = Leistung</li></ul>
+
+### Artikelstatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Artikelstatus | integer | <ul><li>0 = Verkauf und Einkauf</li><li>1 = Einkauf</li><li>2 = Verkauf</li><li>3 = kein Status</li></ul>
+
+### Warengruppeart
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Warengruppeart | integer | <ul><li>1 = Artikelgruppe</li><li>2 = Leistungsgruppe</li></ul>
+
+### WarengruppeListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Warengruppe_ID | string
+WarengruppeArt | [Warengruppeart](#warengruppeart)
+Bezeichnung | string
+Obergruppe | string
+Obergruppe_ID | string
+
+### WarengruppeItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Warengruppe_ID | string
+WarengruppeArt | [Warengruppeart](#warengruppeart)
+Bezeichnung | string
+Obergruppe | string
+Obergruppe_ID | string
+Beschreibung | string
+EKontoInland | integer
+EKontoEU | integer
+EKontoAusland | integer
+EKontoSteuerfrei | integer
+EKontoAnzInland | integer
+EKontoAnzEU | integer
+EKontoAnzAusland | integer
+EKontoAnzSteuerfrei | integer
+AKontoInland | integer
+AKontoEU | integer
+AKontoAusland | integer
+AKontoSteuerfrei | integer
+GesamtRabattGesperrt | boolean
+
+### WarengruppeAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+WarengruppeArt | [Warengruppeart](#warengruppeart)
+Bezeichnung | string
+Obergruppe | string
+Beschreibung | string
+EKontoInland | integer
+EKontoEU | integer
+EKontoAusland | integer
+EKontoSteuerfrei | integer
+EKontoAnzInland | integer
+EKontoAnzEU | integer
+EKontoAnzAusland | integer
+EKontoAnzSteuerfrei | integer
+AKontoInland | integer
+AKontoEU | integer
+AKontoAusland | integer
+AKontoSteuerfrei | integer
+GesamtRabattGesperrt | boolean
+
+### ArtikelFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Suchtext | string
+Warengruppe | string
+Matchcode | string
+Artikelart | [Artikelart](#artikelart)
+Artikelstatus | [Artikelstatus](#artikelstatus)
+Bezeichnung | string
+Hersteller | string
+GesperrteAusblenden | boolean
+nurLagerArtikel | boolean
+nurOnlineshopArtikel | boolean
+nurVorraetigeArtikel | boolean
+nurBestellteArtikel | boolean
+nurStueckartikel | boolean
+nurStuecklisten | boolean
+ohneStuecklisten | boolean
+Stueckliste_Ident | string
+
+### ArtikelListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Artikel_ID | string | <i class="label label-info">read-only</i>
+Matchcode | string | <i class="label label-info">read-only</i>
+ArtikelArt | Artikelart | <i class="label label-info">read-only</i>
+ArtikelNr | string | <i class="label label-info">read-only</i>
+Warengruppe | string | <i class="label label-info">read-only</i>
+Warengruppe_ID | string | <i class="label label-info">read-only</i>
+Bezeichnung | string
+
+### ArtikelItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Artikel_ID | string | <i class="label label-info">read-only</i>
+VersionKey | string | <i class="label label-info">read-only</i>
+Matchcode | string | <i class="label label-info">read-only</i>
+ArtikelArt | [Artikelart](#artikelart) | <i class="label label-info">read-only</i>
+ArtikelNr | string | <i class="label label-info">read-only</i>
+Warengruppe | string | <i class="label label-info">read-only</i>
+Warengruppe_ID | string | <i class="label label-info">read-only</i>
+Bezeichnung | string
+Beschreibung | string
+Status | [Artikelstatus](#artikelstatus)
+Hersteller | string
+HerstellerNr | string
+HerstellerURL | string
+Einheit | string
+Groesse | string
+Verpackung | string
+GewichtProStk | float (0.0)
+Gewicht | float (0.0)
+EANCode | string
+Gesperrt | boolean
+Sperrgrund | string
+Kostenstelle | string
+InPreisliste | boolean
+Lagerartikel | boolean
+Lager | string
+LagerReferenz | string
+OnlineshopArtikel | boolean
+Bestand | float (0.0) | <i class="label label-info">read-only</i>
+Bestellt | float (0.0) | <i class="label label-info">read-only</i>
+MindestBestand | float (0.0)
+ZielBestand | float (0.0)
+BestandZuAb | float (0.0)
+BestandZuAbGrund | string
+BestelltZuAb | float (0.0)
+BestelltZuAbGrund | string
+Notizen | string
+ArtikelBildAnzahl | integer | <i class="label label-info">read-only</i>
+AttachmentIDList | string[] | <i class="label label-info">read-only</i>
+StueckListTyp | [StueckListeTyp](#stuecklistetyp) | neu ab Version 16.0 <i class="label label-info">read-only</i>
+PreisProStkEK | float (0.0) | <i class="label label-info">read-only</i>
+PreisProStkVK | float (0.0) | <i class="label label-info">read-only</i>
+EKBerechnungArt | [Artikelkalkbasis](#artikelkalkbasis) | <i class="label label-info">read-only</i>
+EKAufwandArt | [Artikelkalkaufwand](#artikelkalkaufwand) | <i class="label label-info">read-only</i>
+EKPreisNetto | string | <i class="label label-info">read-only</i>
+EKPreisSteuer | string | <i class="label label-info">read-only</i>
+EKPreisBrutto | string | <i class="label label-info">read-only</i>
+EKAufwBetragNetto | string | <i class="label label-info">read-only</i>
+EKAufwBetragSteuer | string | <i class="label label-info">read-only</i>
+EKAufwBetragBrutto | string | <i class="label label-info">read-only</i>
+EKAufwProzentNetto | string | <i class="label label-info">read-only</i>
+EKAufwProzentBrutto | string | <i class="label label-info">read-only</i>
+EKGesamtNetto | string | <i class="label label-info">read-only</i>
+EKGesamtSteuer | string | <i class="label label-info">read-only</i>
+EKGesamtBrutto | string | <i class="label label-info">read-only</i>
+VKBerechnungArt | [Artikelkalkbasis](#artikelkalkbasis) | <i class="label label-info">read-only</i>
+VKMargeArt | [Artikelkalkmarge](#artikelkalkmarge) | <i class="label label-info">read-only</i>
+VKMargeBetragNetto | string | <i class="label label-info">read-only</i>
+VKMargeBetragSteuer | string | <i class="label label-info">read-only</i>
+VKMargeBetragBrutto | string | <i class="label label-info">read-only</i>
+VKMargeProzentNetto | string | <i class="label label-info">read-only</i>
+VKMargeProzentBrutto | string | <i class="label label-info">read-only</i>
+VKGesamtNetto | string | <i class="label label-info">read-only</i>
+VKGesamtSteuer | string | <i class="label label-info">read-only</i>
+VKGesamtBrutto | string | <i class="label label-info">read-only</i>
+
+### ArtikelAddltem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Bezeichnung | string
+ArtikelArt | Artikelart
+ArtikelNr | string
+Warengruppe | string
+Matchcode | string
+Beschreibung | string
+Status | [Artikelstatus](#artikelstatus)
+Hersteller | string
+HerstellerNr | string
+HerstellerURL | string
+Einheit | string
+Groesse | string
+Verpackung | string
+GewichtProStk | float (0.0)
+Gewicht | float (0.0)
+EANCode | string
+Gesperrt | boolean
+Sperrgrund | string
+Kostenstelle | string
+InPreisliste | boolean
+Lagerartikel | boolean
+Lager | string
+LagerReferenz | string
+OnlineshopArtikel | boolean
+BestandZuAb | float (0.0)
+BestandZuAbGrund | string
+BestelltZuAb | float (0.0)
+BestelltZuAbGrund | string
+MindestBestand | float (0.0)
+ZielBestand | float (0.0)
+Notizen | string
+PreisProStkEK | float (0.0)
+PreisProStkVK | float (0.0)
+EKBerechnungArt | [Artikelkalkbasis](#artikelkalkbasis)
+EKAufwandArt | [Artikelkalkaufwand](#artikelkalkaufwand)
+EKPreisNetto | string
+EKPreisSteuer | string
+EKPreisBrutto | string
+EKAufwBetragNetto | string
+EKAufwBetragSteuer | string
+EKAufwBetragBrutto | string
+EKAufwProzentNetto | string
+EKAufwProzentBrutto | string
+EKGesamtNetto | string
+EKGesamtSteuer | string
+EKGesamtBrutto | string
+VKBerechnungArt | [Artikelkalkbasis](#artikelkalkbasis)
+VKMargeArt | [Artikelkalkmarge](#artikelkalkmarge)
+VKMargeBetragNetto | string
+VKMargeBetragSteuer | string
+VKMargeBetragBrutto | string
+VKMargeProzentNetto | string
+VKMargeProzentBrutto | string
+VKGesamtNetto | string
+VKGesamtSteuer | string
+VKGesamtBrutto | string
+
+### ArtikelAddPosten
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Artikel_ID | string
+Artikelmenge | float (0.0)
+
+### ArtikelBildItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Name | string
+Notizen | string
+Bildposition | integer | <ul><li>1 = Position 1</li><li>2 = Position 2</li><li>usw.</li></ul>0 ist ungültig
+Bildbreite | integer
+Bildhoehe | integer
+Bildformat | string
+DatenBASE64 | string | Raw-Daten in BASE64-Kodierung
+
+### ArtikelBildAddlItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Name | string
+Bildposition | integer | 0 = Append an Liste , 1 ... n = Insert in Liste
+Notizen | string
+DatenBASE64 | string | Raw-Daten in BASE64-Kodierung
+
+## Funktionsliste von Artikel und Leistungen
+
+### warengruppeTemplate
+
+liefert WarengruppeAddItem als Vorlage
+
+Aufruf:
+<pre class="center-column">
+{
+  "warengruppeTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "warengruppeTemplateResponse": {
+    "ReturnData": {
+      "WarengruppeAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### warengruppeList
+
+Auflistung Warengruppen
+
+Aufruf:
+<pre class="center-column">
+{
+  "warengruppeList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "warengruppeListResponse": {
+    "ReturnData": {
+      "WarengruppeListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### warengruppeGet
+
+Liefert Details einer Warengruppe
+
+Aufruf:
+<pre class="center-column">
+{
+  "warengruppeGet": {
+    "Warengruppe_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "warengruppeGetResponse": {
+    "ReturnData": {
+      "WarengruppeItem": {...}
+    }
+  }
+}
+</pre>
+
+### warengruppeAdd
+
+fügt eine Warengruppe hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "warengruppeAdd": {
+    "WarengruppeAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "warengruppeAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### warengruppeDelete
+
+löscht eine vorhandene Warengruppe
+
+Aufruf:
+<pre class="center-column">
+{
+  "warengruppeDelete": {
+    "Warengruppe_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "warengruppeDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### artikelTemplate
+liefert ArtikelAddltem als Vorlage
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelTemplateResponse": {
+    "ReturnData": {
+      "ArtikelAddltem": {...}
+    }
+  }
+}
+</pre>
+
+### artikelList
+
+Auflistung Artikel
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelList": {
+    "ArtikelFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelListResponse": {
+    "ReturnData": {
+      "ArtikelListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### artikelGet
+
+Liefert Details eines Artikel/Leistung
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelGet": {
+    "Artikel_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelGetResponse": {
+    "ReturnData": {
+      "ArtikelItem": {...}
+    }
+  }
+}
+</pre>
+
+### artikelAdd
+
+fügt einen Artikel/Leistung hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelAdd": {
+    "ArtikelAddltem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### artikelDelete
+
+löscht einen vorhandene Artikel/Leistung
+
+Aufruf:
+<pre class="center-column">
+
+{
+  "artikelDelete": {
+    "Artikel_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### artikelModify
+
+ändert einen vorhandenen Artikel/Leistung
+
+Ablauf:
+
+1. Struktur ArtikelItem über artikelGet abrufen.Es wird ein gültiger VersionKey geliefert.
+2. Daten von ArtikelItem bei Bedarf anpassen.
+3. Funktion artikelModify ausführen.
+
+Es wird ein Status über Erfolg/Fehler der Operation zurückgeliefert.
+Hinweis: Es sind nicht alle Daten von ArtikelItem modifizierbar.
+
+Wichtig Es sollten nur die Parameter übergeben werden, welche auch geändert werden sollen. Alle anderen sollten aus ArtikelItem entfernt werden.
+
+Beispielaufruf Änderung Artikelbezeichnung (Artikel_ID, VersionKey beispielhaft)
+
+<pre class="center-column">
+{
+ "artikelModify":{
+    "ArtikelItem":{
+     "Artikel_ID":"481A62479DF4207DB23598B6461308",
+     "VersionKey":"99276D86013D6FE47EFB22572D96B63624",
+     "Bezeichnung":"Hammerstiel holz"
+   }
+  }
+}
+</pre>
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelModify": {
+    "ArtikelItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelModifyResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### artikelFilterTemplate
+
+Vorlage für Filter Artikel/Leistungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelFilterTemplateResponse": {
+    "ReturnData": {
+      "ArtikelFilter": {...}
+    }
+  }
+}
+</pre>
+
+### artikelAddAttachment
+
+fügt ein Attachment einem Artikel hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelAddAttachment": {
+    "Artikel_ID": "..." ,	// string
+    "AttachmentAddItem":  ...
+  }
+}
+
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelAddAttachmentResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### artikelBildGet
+
+Abrufen eines Artikelbildes
+
+Artikelbilder werden durch ihre Position in der Bildliste des Artikels addressiert.
+Dabei hat das erste Bild die Bildposition=1,das zweite die Bildposition=2 usw.
+Das Bild wird als Base64-codierter Datensatz geliefert, in dem im Bildformat definierten Format.
+
+Hinweis: Artikelbilder sind in erster Linie für die Druckausgabe in Einkauf/Verkaufsbelegen vorgesehen.
+Für eine universellere Verknüpfung von Artikeln mit weiteren Daten sollten Attachments verwendet werden.
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelBildGet": {
+    "Artikel_ID": "..." ,	// string
+    "Bildposition":  ... 	// integer
+  }
+}
+
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelBildGetResponse": {
+    "ReturnData": {
+      "ArtikelBildItem": {...}
+    }
+  }
+}
+</pre>
+
+### artikelBildTemplate
+
+Abrufen einer Datenstruktur ArtikelBildAddlItem
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelBildTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelBildTemplateResponse": {
+    "ReturnData": {
+      "ArtikelBildAddlItem": {...}
+    }
+  }
+}
+</pre>
+
+### artikelBildAdd
+
+fügt ein Artikelbild hinzu
+
+Ablauf:
+
+1. Den Zielartikel über den Parameter Artikel_ID festlegen.
+2. Eine Struktur Datenstruktur ArtikelBildAddlItem über artikelBildTemplate abrufen mit folgenden Daten füllen:
+    1. Den Namen des Artikebildes in Name festlegen. Dieser muss innerhalb des Artikels eindeutig sein.
+    2. Die Einfügeposition über Bildposition festlegen.
+    Dabei wird bei Wert 0 das Bild an die Bildliste des Artikels angehängt, ansonsten das Bild an der Position eingefügt.
+    3. Die eigentlichen Bilddaten Base64-codiert in DatenBASE64 setzen. Unterstützt werden die gängien Bildformate.
+    4. Eventuelle Notizen können in Notizen gesetzt werden.
+3. Funktion artikelBildAdd ausführen.
+
+Es wird dem Artikel das Bild zugeordnet. Bei Erfolg wird der `Statuscode = 0` geliefert.
+Bei einem Fehler wird `Statuscode <> 0` und weitere Infos zum aufgetretenen Fehler geliefert.
+
+Hinweis: Weitere Infos zu Artikelbilder finden sie in der Hilfe zur Funktion artikelBildGet.
+Sie können sich mit Hilfe des Testclient mit den Funktionen vertraut machen. Dort werden Testdaten einem auszuwählenden Artikel zugeordnet.
+
+Aufruf:
+<pre class="center-column">
+{
+  "artikelBildAdd": {
+    "Artikel_ID": "..." ,	// string
+    "ArtikelBildAddlItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "artikelBildAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>

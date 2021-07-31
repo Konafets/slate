@@ -1,0 +1,184 @@
+# Offene Posten
+
+## Datenstrukturen von Offene Posten
+
+### OffenePostenArt
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+OffenePostenArt | integer | <ul><li>0 = DebitorRechnung</li><li>1 = DebitorGutschrift</li><li>2 = KreditorRechnung</li><li>3 = KreditorGutschrift</li></ul>
+
+### OffenePostenListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Posten_ID | string
+Adresse_ID | string
+Postenart | [OffenePostenArt](#offenepostenart)
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | integer
+Brutto | string
+Bezahlt | string
+Offen | string
+
+### OffenePostenItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Posten_ID | string
+Adresse_ID | string
+Postenart | [OffenePostenArt](#offenepostenart)
+Datum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Name | string
+Konto | integer
+Brutto | string
+Bezahlt | string
+Offen | string
+Zahlungsart | [Zahlungsart](#zahlungsart)
+Waehrung | string
+Text | string
+OffenePostenPositionItemList | [OffenePostenPositionItem](#offenepostenpositionitem)[] | Array vom Typ OffenePostenPositionItem
+
+### OffenePostenPositionItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Position | integer
+Text | string
+BetragBruttoFW | string
+BetragBruttoSW | string
+BetragNettoFW | string
+BetragNettoSW | string
+BetragSteuerFW | string
+BetragSteuerSW | string
+EA_Konto | integer
+Kostenstelle1 | string
+Kostenstelle2 | string
+Steuersatz | string
+
+### OffenePostenAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+Postenart | OffenePostenArt
+Konto | string
+Datum | date<br>(yyyy-mm-dd)
+OffenePostenPositionItemList | [OffenePostenPositionAddItem](#offenepostenpositionadditem) | Array vom Typ OffenePostenPositionAddItem
+
+### OffenePostenPositionAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Text | string
+BetragBruttoFW | string
+BetragNettoFW | string
+EA_Konto | integer
+Kostenstelle1 | string
+Kostenstelle2 | string
+Steuersatz | string
+
+### OffenePostenFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+OpDatum | date<br>(yyyy-mm-dd)
+BelegNr | string
+Konto | string
+Text | string
+Waehrung | string
+BetragVon | string
+BetragBis | string
+Zahlungsart | [Zahlungsart](#zahlungsart) | -1 steht für alle Zahlungsarten
+
+## Funktionsliste von Offene Posten
+
+### offenePostenFilterTemplate
+
+Vorlage für Offene Posten-Filter
+
+Aufruf:
+<pre class="center-column">
+{
+  "offenePostenFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "offenePostenFilterTemplateResponse": {
+    "ReturnData": {
+      "OffenePostenFilter": {...}
+    }
+  }
+}
+</pre>
+
+### offenePostenListDebitoren
+
+Auflistung offener Posten Debitoren
+
+Aufruf:
+<pre class="center-column">
+{
+  "offenePostenListDebitoren": {
+    "OffenePostenFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "offenePostenListDebitorenResponse": {
+    "ReturnData": {
+      "OffenePostenListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### offenePostenListKreditoren
+
+Auflistung offener Posten Kreditoren
+
+Aufruf:
+<pre class="center-column">
+{
+  "offenePostenListKreditoren": {
+    "OffenePostenFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "offenePostenListKreditorenResponse": {
+    "ReturnData": {
+      "OffenePostenListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### offenePostenGet
+
+Liefert Details eines Posten
+
+Aufruf:
+<pre class="center-column">
+{
+  "offenePostenGet": {
+    "Posten_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "offenePostenGetResponse": {
+    "ReturnData": {
+      "OffenePostenItem": {...}
+    }
+  }
+}
+</pre>

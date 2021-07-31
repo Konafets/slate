@@ -61,3 +61,13 @@ set :port, 4567
 helpers do
   require './lib/toc_data.rb'
 end
+
+# Global Variables
+set :url, 'https://ipdresse:port/monkeyOfficeConnectJSON'
+config[:url]
+
+set :companyId1, '02406B7F374E1C9F0D8E2A85'
+config[:companyId1]
+
+set :companyId2, '3D6D193C3E8F27D4E8805B91'
+config[:companyId2]

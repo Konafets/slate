@@ -1,0 +1,193 @@
+# Attachment-Verwaltung
+Die Zuweisung von Attachments zu Datenobjekten erfolgt in dem jeweilen Modul, z.B. über die Funktion LINK EINFÜGEN verkaufbelegAddAttachment im Modul [Verkaufsbelege](#verkaufsbelege) (siehe dortige Beschreibung). Attachment-Daten werden als Base64-Daten übertragen.
+Ab Version 17.0 werden alternativ Links unterstützt. Links verweisen auf Daten, welche durch externe System verwaltet werden.
+Über die Attachment-Verwaltung können existierende Attachments aufgelistet und abgerufen werden.
+Die SourceID wird je nach Parent-Objekt (AttachmentGruppe) interpretiert (Verkaufsbelege = Verkaufbeleg_ID).
+
+## Datenstrukturen von Attachment-Verwaltung
+
+### AttachmentGruppe
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+AttachmentGruppe | 	integer | <ul><li>1 = Buchungen</li><li>2 = Verkaufsbelege</li><li>3 = Einkaufsbelege</li><li>4 = Offene Posten</li><li>5 = Adressen</li><li>10 = Artikel und Leistungen</li><li>15 = Verkaufsposition</li><li>16 = Einkaufsposition</li><li>21 = Projekte</li></ul>
+
+### AttachmentFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+DatumVon | date<br>(yyyy-mm-dd) | Attachment hinzugefuegt
+DatumBis | date<br>(yyyy-mm-dd) | Attachment hinzugefuegt
+Name | string
+Dateityp | string
+AttachmentGruppe | integer
+Notizen | string
+
+### AttachmentListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Attachment_ID | string
+Bezeichnung | string | Neu ab Version 17.0
+Name | string | Dateiname der Raw-Daten, wird bei Links nicht benutzt
+AttachmentGruppe | [AttachmentGruppe](#attachmentgruppe)
+SourceID | string | wird entsprechend der Gruppe interpretiert, z.B. Verkauf = Verkaufbeleg_ID
+Datum | date<br>(yyyy-mm-dd)
+Dateityp | string
+Dateigroesse | integer
+Link | string | Neu ab Version 17.0
+
+### AttachmentItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Attachment_ID | string
+Bezeichnung | string | Neu ab Version 17.0
+Name | string | Dateiname der Raw-Daten, wird bei Links nicht benutzt
+AttachmentGruppe | [AttachmentGruppe](#attachmentgruppe)
+SourceID | string | wird entsprechend der Gruppe interpretiert, z.B. Verkauf = Verkaufbeleg_ID
+Datum | date<br>(yyyy-mm-dd)
+Dateityp | string
+Dateigroesse | integer
+Link | string | Neu ab Version 17.0
+Notizen | string | Neu ab Version 17.0
+
+### AttachmentItemData
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Bezeichnung | string | Neu ab Version 17.0
+Name | string | Dateiname der Raw-Daten, wird bei Links nicht benutzt
+AttachmentGruppe | [AttachmentGruppe](#attachmentgruppe)
+Dateigroesse | integer
+Datum | date<br>(yyyy-mm-dd)
+Dateityp | string
+DatenBASE64 | string | Raw-Daten in BASE64-Kodierung
+Link | string | Neu ab Version 17.0
+Notizen | string | Neu ab Version 17.0
+
+### AttachmentAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Bezeichnung | string | Neu ab Version 17.0
+Name | string | Dateiname der Raw-Daten, wird bei Links nicht benutzt
+DatenBASE64 | string | Raw-Daten in BASE64-Kodierung
+Link | string | Neu ab Version 17.0
+Notizen | string | Neu ab Version 17.0
+
+## Funktionsliste von Attachment-Verwaltung
+
+### attachmentFilterTemplate
+
+Vorlage für Attachment-Filter
+
+Aufruf:
+<pre class="center-column">
+{
+  "attachmentFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "attachmentFilterTemplateResponse": {
+    "ReturnData": {
+      "AttachmentFilter": {...}
+    }
+  }
+}
+</pre>
+
+### attachmentList
+
+listet vorhandenen Attachments
+
+Aufruf:
+<pre class="center-column">
+{
+  "attachmentList": {
+    "AttachmentFilter":  ... 	// (optional)
+  }
+}
+
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "attachmentListResponse": {
+    "ReturnData": {
+      "AttachmentListItem": {...}
+    }
+  }
+}
+</pre>
+
+### attachmentGet
+
+Liefert Details eines Attachments
+
+Aufruf:
+<pre class="center-column">
+{
+  "attachmentGet": {
+    "Attachment_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "attachmentGetResponse": {
+    "ReturnData": {
+      "AttachmentItem": {...}
+    }
+  }
+}
+</pre>
+
+### attachmentLoad
+
+Download Attachment-File. Die Daten des Dokuments sind als Base64 codiert
+
+Aufruf:
+<pre class="center-column">
+{
+  "attachmentLoad": {
+    "Attachment_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "attachmentLoadResponse": {
+    "ReturnData": {
+      "AttachmentItemData": {...}
+    }
+  }
+}
+</pre>
+
+### attachmentDelete
+
+löscht ein Attachment
+
+Aufruf:
+<pre class="center-column">
+{
+  "attachmentDelete": {
+    "Attachment_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "attachmentDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>

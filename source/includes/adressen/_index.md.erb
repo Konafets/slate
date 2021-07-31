@@ -1,0 +1,992 @@
+# Adressen
+
+## Datenstrukturen von Adressen
+
+### KontaktRolle
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+KontaktRolle | integer | <ul><li>1 = Verkauf(allgemein)</li><li>2 = Einkauf(allgemein)</li><li>3 = Mahnungen</li><li>4 = Angebote</li><li>5 = Auftragsbestätigungen</li><li>6 = Lieferscheine</li><li>7 = Korrekturrechnungen</li><li>8 = Proformarechnungen</li><li>9 = Abschlagsrechnungen</li><li>10 = Verkaufsrechnungen</li><li>11 = Storno Verkaufsrechnungen</li><li>12 = Bestellanfragen</li><li>13 = Bestellungen</li><li>14 = Wareneingänge</li><li>15 = Lieferantengutschriften</li><li>16 = Rücksendungen</li><li>17 = Eingangsrechnungen</li><li>18 = Storno Eingangsrechnungen</li><li>19 = Briefe</li></ul>
+
+### KontaktRolleItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+KontaktRolle | integer |
+
+### AdresseStatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+AdresseStatus | integer | <ul><li>-2 = ohne Status</li><li>-1 = Ist Kunde bzw. Lieferant</li><li>0 = Ist kein Kunde bzw. Lieferant</li><li>1 = Ist aktiver Kunde bzw. Lieferant</li><li>2 = Ist inaktiver Kunde bzw. Lieferant</li><li>3 = Ist gesperrter Kunde bzw. Lieferant</li></ul>
+
+### AdressePreisAngabe
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+AdressePreisAngabe | integer | <ul><li>0 = Standard</li><li>1 = Netto</li><li>2 = Brutto</li></ul>
+
+### AdresseItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string | <i class="label label-info">read-only</i>
+VersionKey | string | <i class="label label-info">read-only</i>
+Matchcode | string
+AdressNr | string
+Kategorie | string | eine oder mehrere Kategorien, kommagtrennt
+KundenStatus | [AdresseStatus](#adressestatus)
+LieferantenStatus | [AdresseStatus](#adressestatus)
+RA_Firma1 | string | RA = Rechnunganschrift
+RA_Firma2 | string
+RA_Anrede | string
+RA_Zusatz | string
+RA_Vorname | string
+RA_Nachname | string
+RA_Plz | string
+RA_Ort | string
+RA_Geschlecht | string | w/m
+RA_Strasse | string
+RA_StrasseNr | string
+RA_Land | string
+RA_LandISO | string
+RA_PostfachPlz | string
+RA_PostfachNr | string
+RA_PfVerwenden | boolean
+RA_Telefon1 | string
+RA_Telefon2 | string
+RA_Telefon3 | string
+RA_Telefax | string
+RA_Email | string
+RA_Internet | string
+LA_Firma1 | string | LA = Lieferanschrift
+LA_Firma2 | string
+LA_LaVerwenden | boolean
+LA_Anrede | string
+LA_Vorname | string
+LA_Nachname | string
+LA_Zusatz | string
+LA_Strasse | string
+LA_StrasseNr | string
+LA_Plz | string
+LA_Ort | string
+LA_Land | string
+LA_PostfachPlz | string
+LA_PostfachNr | string
+LA_PfVerwenden | boolean
+LA_Telefon | string
+LA_Telefax | string
+LA_Email | string
+LA_Lieferart | string
+KF_Konto | integer | KF = Kunde Faktura
+KF_Sammelkonto | boolean
+KF_Zahlungsbedingungen | string
+KF_Ertragkonto | integer
+KF_Waehrung | string
+KF_FinanzKonto | integer
+KF_Preisangabe | [AdressePreisAngabe](#adressepreisangabe)
+KF_KoSt1 | string
+KF_KoSt2 | string
+KF_ExterneNr | string
+KF_Lieferstopp | boolean
+KF_Rabatt | string
+KF_PreislisteID | string
+KF_Bankdaten | [BankdatenItem](#bankdatenitem)
+LF_Konto | integer | LF = Lieferant Faktura
+LF_Sammelkonto | boolean
+LF_Zahlungsbedingungen | string
+LF_Aufwandkonto | integer
+LF_Waehrung | string
+LF_FinanzKonto | integer
+LF_Preisangabe | [AdressePreisAngabe](#adressepreisangabe)
+LF_KoSt1 | string
+LF_KoSt2 | string
+LF_ExterneNr | string
+LF_Bestellstopp | boolean
+LF_Rabatt | string
+LF_Bankdaten | [BankdatenItem](#bankdatenitem)
+Steuergebiet | [Steuergebiet](#steuergebiet)
+UStID | string
+Belegsprache | string
+Briefanrede | string
+Briefgruss | string
+Notizen | string
+Mail_Preferred | boolean
+AttachmentIDList | string[] | <i class="label label-info">read-only</i>
+
+### AdresseAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Matchcode | string
+AdressNr | string
+Kategorie | string | eine oder mehrere Kategorien, kommagtrennt
+KundenStatus | [AdresseStatus](#adressestatus)
+LieferantenStatus | [AdresseStatus](#adressestatus)
+RA_Firma1 | string | RA = Rechnunganschrift
+RA_Firma2 | string
+RA_Anrede | string
+RA_Zusatz | string
+RA_Vorname | string
+RA_Nachname | string
+RA_Plz | string
+RA_Ort | string
+RA_Geschlecht | string | w/m
+RA_Strasse | string
+RA_StrasseNr | string
+RA_Land | string
+RA_LandISO | string
+RA_PostfachPlz | string
+RA_PostfachNr | string
+RA_PfVerwenden | boolean
+RA_Telefon1 | string
+RA_Telefon2 | string
+RA_Telefon3 | string
+RA_Telefax | string
+RA_Email | string
+RA_Internet | string
+LA_Firma1 | string | LA = Lieferanschrift
+LA_Firma2 | string
+LA_LaVerwenden | boolean
+LA_Anrede | string
+LA_Vorname | string
+LA_Nachname | string
+LA_Zusatz | string
+LA_Strasse | string
+LA_StrasseNr | string
+LA_Plz | string
+LA_Ort | string
+LA_Land | string
+LA_PostfachPlz | string
+LA_PostfachNr | string
+LA_PfVerwenden | boolean
+LA_Telefon | string
+LA_Telefax | string
+LA_Email | string
+LA_Lieferart | string
+KF_Zahlungsbedingungen | string | KF = Kunde Faktura
+KF_Preisangabe | [AdressePreisAngabe](#adressepreisangabe)
+KF_ExterneNr | string
+KF_Lieferstopp | boolean
+KF_Rabatt | string
+KF_KoSt1 | string
+KF_KoSt2 | string
+KF_PreislisteID | string
+KF_Ertragkonto | integer
+KF_Konto | integer
+KF_Sammelkonto | boolean
+KF_Waehrung | string
+KF_FinanzKonto | integer
+KF_Bankdaten | [BankdatenItem](#bankdatenitem) |	beim Setzen findet keine Validierung statt
+LF_Zahlungsbedingungen | string | LF = Lieferant Faktura
+LF_Preisangabe | [AdressePreisAngabe](#adressepreisangabe)
+LF_ExterneNr | string
+LF_Bestellstopp | boolean
+LF_Rabatt | string
+LF_KoSt1 | string
+LF_KoSt2 | string
+LF_Aufwandkonto | integer
+LF_Konto | integer
+LF_Sammelkonto | boolean
+LF_Waehrung | string
+LF_FinanzKonto | integer
+LF_Bankdaten | [BankdatenItem](#bankdatenitem) |	beim Setzen findet keine Validierung statt
+Steuergebiet | [Steuergebiet](#steuergebiet)
+UStID | string
+Belegsprache | string
+Briefanrede | string
+Briefgruss | string
+Notizen | string
+Mail_Preferred | boolean
+
+### AdresseListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+Matchcode | string
+AdressNr | string
+Kategorie | string
+KundenStatus | [AdresseStatus](#adressestatus)
+LieferantenStatus | [AdresseStatus](#adressestatus)
+RA_Firma1 | string | RA = Rechnunganschrift
+RA_Vorname | string
+RA_Nachname | string
+RA_Plz | string
+RA_Ort | string
+RA_Strasse | string | Neu ab 18.0.0
+RA_StrasseNr | string | Neu ab 18.0.0
+
+### AdresseKategorieItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Name | string
+
+### AdresseFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Suchtext | string
+Matchcode | string
+AdresseKategorie | string
+LieferantenStatus | [AdresseStatus](#adressestatus)
+KundenStatus | [AdresseStatus](#adressestatus)
+
+### AnsprechpartnerListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+Ansprechpartner_ID | string
+Abteilung | string
+Position | string
+Vorname | string
+Nachname | string
+EmailFirma | string
+EmailPrivat | string
+TelefonFirma | string
+TelefonMobil | string
+TelefonPrivat | string
+
+### AnsprechpartnerAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+Abteilung | string
+Position | string
+Vorname | string
+Nachname | string
+EmailFirma | string
+EmailPrivat | string
+TelefonFirma | string
+TelefonMobil | string
+TelefonPrivat | string
+Anrede | string
+Geschlecht | string
+Geburtsdatum | date<br>(yyyy-mm-dd)
+Briefanrede | string
+Zusatz | string
+Bemerkung | string
+KontaktRollenList | [KontaktRolleItem](#kontaktrolleitem)[] |
+
+### AnsprechpartnerItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string | <i class="label label-info">read-only</i>
+Ansprechpartner_ID | string | <i class="label label-info">read-only</i>
+VersionKey | string | <i class="label label-info">read-only</i>
+Abteilung | string
+Position | string
+Vorname | string
+Nachname | string
+EmailFirma | string
+EmailPrivat | string
+TelefonFirma | string
+TelefonMobil | string
+TelefonPrivat | string
+Anrede | string
+Geschlecht | string
+Geburtsdatum | date<br>(yyyy-mm-dd)
+Briefanrede | string
+Zusatz | string
+Bemerkung | string
+KontaktRollenList | [KontaktRolleItem](#kontaktrolleitem)[] | Array vom Typ KontaktRolleItem
+
+### BankdatenItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+IBAN | string
+BIC | string
+Bank | string
+Inhaber | string
+
+### SepaMandatArt
+neu ab Version 17.0
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+SepaMandatArt | integer | <ul><li>1 = Basislastschrift</li><li>2 = Firmenlastschrift</li></ul>
+
+### SepaMandatTyp
+neu ab Version 17.0
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+SepaMandatTyp | integer | <ul><li>1 = Einmalig</li><li>2 = Wiederholung</li></ul>
+
+### SepaMandatStatus
+neu ab Version 17.0
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+SepaMandatStatus | integer | <ul><li>1 = Neu</li><li>2 = Aktiv</li><li>3 = InAktiv</li><li>4 = Widerrufen</li></ul>
+
+### SepaMandatAddItem
+neu ab Version 17.0
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+MandatReferenz | string
+MandatArt | [SepaMandatArt](#sepamandatart)
+MandatTyp | [SepaMandatTyp](#sepamandattyp)
+MandatStatus | [SepaMandatStatus](#sepamandatstatus)
+Einreichfrist | integer
+GueltigAb | date<br>(yyyy-mm-dd)
+GueltigBis | date<br>(yyyy-mm-dd)
+AktiviertBis | date<br>(yyyy-mm-dd)
+
+### SepaMandatListItem
+neu ab Version 17.0
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+SepaMandat_ID | string
+Adresse_ID | string
+MandatReferenz | string
+MandatStatus | [SepaMandatStatus](#sepamandatstatus)
+MandatArt | [SepaMandatArt](#sepamandatart)
+MandatTyp | [SepaMandatTyp](#sepamandattyp)
+
+### SepaMandatItem
+neu ab Version 17.0
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+SepaMandat_ID | string
+VersionKey | string | <i class="label label-info">read-only</i>
+Adresse_ID | string
+MandatReferenz | string
+MandatStatus | [SepaMandatStatus](#sepamandatstatus)
+MandatArt | [SepaMandatArt](#sepamandatart)
+MandatTyp | [SepaMandatTyp](#sepamandattyp)
+Einreichfrist | integer
+GueltigAb | date<br>(yyyy-mm-dd)
+GueltigBis | date<br>(yyyy-mm-dd)
+AktiviertBis | date<br>(yyyy-mm-dd)
+WiderrufenAm | date<br>(yyyy-mm-dd)
+LetzteVerwendung | date<br>(yyyy-mm-dd)
+ErstelltAm | date<br>(yyyy-mm-dd) | <i class="label label-info">read-only</i>
+
+### SepaMandatPrintItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Name | string
+Dateigroesse | integer
+Dateityp | string
+DatenBASE64 | string | Raw-Daten in BASE64-Kodierung
+
+## Funktionsliste von Adressen
+
+### adresseFilterTemplate
+Vorlage für Adressen-Filter
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseFilterTemplateResponse": {
+    "ReturnData": {
+      "[AdresseFilter](#adressefilter)": {...}
+    }
+  }
+}
+</pre>
+
+```shell
+curl -X "POST" "http://127.0.0.1:8084/monkeyOfficeConnectJSON" \
+     -H 'mbl-ident: 4F01644397CE0566C14498B2' \
+     -H 'Content-Type: text/plain; charset=utf-8' \
+     -u 'user:password' \
+     -d $'{ "adresseFilterTemplate": "" }'
+```
+
+````json
+{
+  "adresseFilterTemplateResponse": {
+    "ReturnData": {
+      "AdresseFilter": {
+        "Suchtext": "",
+        "Matchcode": "",
+        "AdresseKategorie": "",
+        "LieferantenStatus": "-2",
+        "KundenStatus": "-2"
+      }
+    }
+  }
+}
+```
+
+### adresseList
+Liefert alle Adressen als Liste
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseList": {
+    "[AdresseFilter](#adressefilter)": {} // (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseListResponse":
+  {
+    "ReturnData": {
+      "[AdresseListItem](#adresselistitem)": [{}, {}, ...]
+    }
+  }
+}
+</pre>
+
+```shell
+curl -X "POST" "<%= config[:url] %>" \
+     -H 'mbl-ident: <%= config[:companyId1] %>' \
+     -H 'Content-Type: text/plain; charset=utf-8' \
+     -u 'user:password' \
+     -d $'{
+            "adresseList":{
+              "AdresseFilter":{
+                "Suchtext":"",
+                "Matchcode":"",
+                "AdresseKategorie":"",
+                "LieferantenStatus":"-2",
+                "KundenStatus":"-2"
+              }
+            }
+          }'
+```
+
+```json
+{
+  "adresseListResponse": {
+    "ReturnData": {
+      "AdresseListItem": [
+        {
+          "Adresse_ID": "480C644B85E2297DB23598B243130C",
+          "Matchcode": "LIEFERANT",
+          "AdressNr": "ADR-00001",
+          "Kategorie": "",
+          "KundenStatus": 0,
+          "LieferantenStatus": 1,
+          "RA_Firma1": "Lieferant",
+          "RA_Vorname": "",
+          "RA_Nachname": "",
+          "RA_Plz": "",
+          "RA_Ort": "",
+          "RA_Strasse": "",
+          "RA_StrasseNr": ""
+        },
+        {
+          "Adresse_ID": "480C644B85E2297DB23598B147130C",
+          "Matchcode": "KUNDE",
+          "AdressNr": "ADR-IT-00002",
+          "Kategorie": "",
+          "KundenStatus": 1,
+          "LieferantenStatus": 0,
+          "RA_Firma1": "Kunde",
+          "RA_Vorname": "",
+          "RA_Nachname": "",
+          "RA_Plz": "",
+          "RA_Ort": "",
+          "RA_Strasse": "",
+          "RA_StrasseNr": ""
+        }
+      ]
+    }
+  }
+}
+```
+
+### adresseGet
+Liefert Details einer Adresse
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseGet": {
+    "Adresse_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseGetResponse": {
+    "ReturnData": {
+      "AdresseItem": {...}
+    }
+  }
+}
+</pre>
+
+### adresseAdd
+Fügt eine Adresse hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseAdd": {
+    "[AdresseAddItem](#adresseadditem)": {}
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseModify
+Modifiziert vorhandene Adresse
+
+Ablauf:
+
+1. Struktur AdresseItem über adresseGet abrufen.Es wird ein gültiger VersionKey geliefert.
+2. Daten von AdresseItem bei Bedarf anpassen.
+3. Funktion adresseModify ausführen.
+
+Es wird ein Status über Erfolg/Fehler der Operation zurückgeliefert.
+Hinweis: Es sind nicht alle Daten von AdresseItem modifizierbar.
+Es sollten nur die Parameter übergeben werden, welche auch geändert werden sollen. Alle anderen sollten aus AdresseItem entfernt werden.
+
+**Beispielaufruf**: <br>Änderung des Vornamens (Adresse_ID, VersionKey beispielhaft)
+
+<pre class="center-column">
+{
+ "adresseModify": {
+    "AdresseItem": {
+     "Adresse_ID":"481A62479DF4207DB23598B6461308",
+     "VersionKey":"99276D86013D6FE47EFB22572D96B63624",
+     "RA_Vorname":"Paul"
+   }
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseModifyResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseDelete
+Löscht vorhandene Adresse
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseDelete": {
+    "Adresse_ID": "..."
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseTemplate
+Liefert AdresseAddItem als Vorlage
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseTemplateResponse": {
+    "ReturnData": {
+      "AdresseAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### adresseKategorieList
+Ermittelt alle Adress-Kategorien
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseKategorieList":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseKategorieListResponse": {
+    "ReturnData": {
+      "AdresseKategorieItem": [
+        {},
+        {},
+        ...
+      ]
+    }
+  }
+}
+</pre>
+
+### adresseAddAttachment
+Fügt ein Attachment einer Adresse hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseAddAttachment": {
+    "Adresse_ID": "..." ,	// string
+    "AttachmentAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseAddAttachmentResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseAnsprechpartnerTemplate
+Liefert AnsprechpartnerAddItem als Vorlage
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerTemplate": {
+    "Adresse_ID": "..." 	// string (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerTemplateResponse": {
+    "ReturnData": {
+      "AnsprechpartnerAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### adresseAnsprechpartnerList
+Liefert alle Ansprechpartner einer Adresse
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerList": {
+    "Adresse_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerListResponse": {
+    "ReturnData": {
+      "AnsprechpartnerListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### adresseAnsprechpartnerAdd
+Fügt Ansprechpartner zu Adresse hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerAdd": {
+    "AnsprechpartnerAddItem": {}
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseAnsprechpartnerGet
+Liefert Details eines einzelnen Ansprechpartner
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerGet": {
+    "Ansprechpartner_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerGetResponse": {
+    "ReturnData": {
+      "AnsprechpartnerItem": {...}
+    }
+  }
+}
+</pre>
+
+### adresseAnsprechpartnerModify
+Modifiziert vorhandenen Ansprechpartner
+
+Ablauf:
+
+1. Struktur AnsprechpartnerItem über adresseAnsprechpartnerGet abrufen. Es wird ein gültiger VersionKey geliefert.
+2. Daten von AnsprechpartnerItem bei Bedarf anpassen.
+3. Funktion adresseAnsprechpartnerModify ausführen.
+
+Es wird ein Status über Erfolg/Fehler der Operation zurückgeliefert.
+Hinweis: Es sind nicht alle Daten von AnsprechpartnerItem modifizierbar.
+Es sollten nur die Parameter übergeben werden, welche auch geändert werden sollen. Alle anderen sollten aus AnsprechpartnerItem entfernt werden.
+
+**Beispielaufruf:** <br>Änderung des Nachnamens (Adresse_ID, Ansprechpartner_ID, VersionKey beispielhaft)
+<pre class="center-column">
+{
+ "adresseAnsprechpartnerModify": {
+    "AnsprechpartnerItem": {
+     "Adresse_ID": "480C644B85E2297DB23598B04C18",
+     "Ansprechpartner_ID": "4806655E84F42F4A8B10D0F3184C4BC98F057A8BEFAE",
+     "VersionKey": "067EF8D83D7912D08D53C8CDD06A7E0D73",
+     "Nachname": "Mustermann"
+   }
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerModifyResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseAnsprechpartnerDelete
+Löscht eine Ansprechpartner
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerDelete": {
+    "Ansprechpartner_ID": "..."
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseAnsprechpartnerDeleteResponse":
+  {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseSepaMandatList
+Auflistung angelegter SEPA-Mandate für Adresse
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseSepaMandatList": {
+    "Adresse_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseSepaMandatListResponse": {
+    "ReturnData": {
+      "SepaMandatListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### adresseSepaMandatTemplate
+Vorlage für neues SEPA-Mandat
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseSepaMandatTemplate": {
+    "Adresse_ID": "..." 	// string (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseSepaMandatTemplateResponse": {
+    "ReturnData": {
+      "SepaMandatAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### adresseSepaMandatAdd
+Anlegen eines SEPA-Mandat für Adresse
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseSepaMandatAdd": {
+    "SepaMandatAddItem": {}
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseSepaMandatAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseSepaMandatGet
+Liefert Details eines vorhandenen SEPA-Mandat
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseSepaMandatGet": {
+    "SepaMandat_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseSepaMandatGetResponse": {
+    "ReturnData": {
+      "SepaMandatItem": {...}
+    }
+  }
+}
+</pre>
+
+### adresseSepaMandatModify
+Modifiziert vorhandenes SEPA-Mandat
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseSepaMandatModify": {
+    "SepaMandatItem": {}
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseSepaMandatModifyResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseSepaMandatDelete
+Löscht vorhandenes SEPA-Mandat
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseSepaMandatDelete": {
+    "SepaMandat_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseSepaMandatDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### adresseSepaMandatPrintPDF
+Gibt SEPA-Mandat als PDF aus
+
+Aufruf:
+<pre class="center-column">
+{
+  "adresseSepaMandatPrintPDF":
+  {
+    "SepaMandat_ID": "..." ,	// string
+    "DruckformularName": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "adresseSepaMandatPrintPDFResponse": {
+    "ReturnData": {
+      "SepaMandatPrintItem": {...}
+    }
+  }
+}
+</pre>

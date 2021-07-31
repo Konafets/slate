@@ -1,0 +1,541 @@
+# Einkaufsbelege
+
+## Datenstrukturen von Einkaufsbelege
+
+### EinkaufbelegArt
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+EinkaufbelegArt  | integer | <ul><li>101 = Bestellanfrage</li><li>102 = Bestellung</li><li>103 = Wareneingang</li><li>104 = Eingangsrechnung</li><li>105 = Lieferantengutschrift</li><li>106 = Rücksendung</li><li>107 = Stornierung</li></ul>
+
+### EinkaufbelegStatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+EinkaufbelegStatus  | integer | <ul><li>1 = Alle</li><li>2 = Nur Dokumente</li><li>3 = Nur Entwürfe/Vorlagen</li></ul>
+
+### EinkaufbelegDruckstatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+EinkaufbelegDruckstatus  | integer | <ul><li>0 = Alle</li><li>1 = nur ungedruckte</li><li>2 = nur gedruckte</li></ul>
+
+### EinkaufBelegKalkbasis
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+EinkaufBelegKalkbasis  | integer | <ul><li>0 = Netto</li><li>1 = Brutto</li></ul>
+
+### EinkaufbelegPositionArt
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+EinkaufbelegPositionArt  | integer | <ul><li>1 = Stammartikel</li><li>2 = Manueller Artikel</li><li>3 = Textposition</li><li>4 = Zwischensumme</li><li>5 = Seitenumbruch</li><li>6 = Kommentar</li><li>7 = Alternativer Stammartikel</li><li>8 = Alternativer manueller Artikel</li></ul>
+
+### EinkaufbelegFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Suchtext | string
+Adresse_ID | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+Bestellanfrage | boolean
+Bestellung | boolean
+Wareneingang | boolean
+Ruecksendung | boolean
+Eingangsrechnung | boolean
+Lieferantengutschrift | boolean
+Storno | boolean
+EinkaufbelegStatus | [EinkaufbelegStatus](#einkaufbelegstatus)
+EinkaufbelegDruckstatus | [EinkaufbelegDruckstatus](#einkaufbelegdruckstatus)
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+BestellNr | string
+Betreff | string
+Anschrift | string
+KopfText | string
+FussText | string
+Waehrung | string
+Bearbeiter | string
+Notiz | string
+EtikettTag_Ohne | boolean
+EtikettTag_1 | boolean
+EtikettTag_2 | boolean
+EtikettTag_3 | boolean
+EtikettTag_4 | boolean
+EtikettTag_5 | boolean
+EtikettTag_6 | boolean
+EtikettTag_7 | boolean
+MitVorbelege | boolean
+MitFolgebelege | boolean
+Zahlungstatus | [Zahlungstatus](#zahlungstatus)
+Versandnummer | string | Neu ab 17.1
+
+### EinkaufbelegListitem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Einkaufbeleg_ID | string
+Adresse_ID | string
+BestellNr | string
+EinkaufbelegArt | [EinkaufbelegArt](#einkaufbelegart)
+Kunde | string
+Datum | date<br>(yyyy-mm-dd)
+Lieferdatum | date<br>(yyyy-mm-dd)
+GesamtNettoFW | string
+GesamtBruttoFW | string
+Projekt_ID | string
+ProjektNr | string
+
+### EinkaufbelegItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Einkaufbeleg_ID | string
+Adresse_ID | string
+BestellNr | string
+EinkaufbelegArt | [EinkaufbelegArt](#einkaufbelegart)
+Kunde | string
+Datum | date<br>(yyyy-mm-dd)
+Lieferdatum | date<br>(yyyy-mm-dd)
+GesamtNettoFW | string
+GesamtBruttoFW | string
+Projekt_ID | string
+ProjektNr | string
+Entwurf | boolean
+EtikettTag | [EtikettTags](#etiketttags)
+Zahlungstatus | [Zahlungstatus](#zahlungstatus)
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+LieferNr | string | veraltet ab 16.0.1, entfällt ab 17.0.0
+Referenz | string | Neu ab 16.0.1, (überschreibt LieferNr)
+RechnAnschrift | string
+LieferAnschrift | string
+LaVerwenden | boolean
+Betreff | string
+Anrede | string
+KopfText | string
+FussText | string
+Grussformel | string
+Notizen | string
+Bearbeiter | string
+BearbeiterAngeben | boolean, Neu ab 17.0.0
+Waehrung | string
+Steuergebiet | [Steuergebiet](#steuergebiet)
+GesamtRabattFW | string
+GesamtSteuerFW | string
+GesamtRabattSW | string
+GesamtSteuerSW | string
+Zahlungsbedingungen | string
+Lieferart | string
+Versandnummer | string | Neu ab 17.1.0
+Rabatt | string
+VorbelegIDList | string[] |
+AttachmentIDList | string[] | <i class="label label-info">read-only</i>
+EinkaufbelegPositionItemList | [EinkaufbelegPositionItem](#einkaufbelegpositionitem)[] | Array vom Typ EinkaufbelegPositionItem
+
+### EinkaufbelegPositionItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Nummer | string
+PosNrManuell | string
+EinkaufbelegPositionArt | [EinkaufbelegPositionArt](#einkaufbelegpositionart)
+Artikel_ID | string
+ArtikelArt | string
+ArtikelNr | string
+Warengruppe | string
+Menge | float (0.0)
+Beschreibung | string
+Bezeichnung | string
+Einheit | string
+Kostenstelle | string
+Rabatt | string
+Steuersatz | string
+Aufwandskonto | integer
+EinzelPreisBruttoFW | string
+EinzelPreisNettoFW | string
+GesamtPreisBruttoFW | string
+GesamtPreisNettoFW | string
+EinzelPreisNettoSW | string
+EinzelPreisBruttoSW | string
+GesamtPreisBruttoSW | string
+GesamtPreisNettoSW | string
+GesamtGewicht | float (0.0)
+
+### EinkaufbelegAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Adresse_ID | string
+BestellNr | string
+EinkaufbelegArt | [EinkaufbelegArt](#einkaufbelegart)
+Entwurf | boolean
+EtikettTag | [EtikettTags](#etiketttags)
+Datum | date<br>(yyyy-mm-dd)
+Lieferdatum | date<br>(yyyy-mm-dd)
+Projekt_ID | string
+RechnAnschrift | string
+LieferAnschrift | string
+LaVerwenden | boolean
+Betreff | string
+Anrede | string
+KopfText | string
+FussText | string
+Grussformel | string
+Notizen | string
+Bearbeiter | string
+BearbeiterAngeben | boolean, Neu ab 17.0.0
+Waehrung | string
+Steuergebiet | [Steuergebiet](#steuergebiet)
+BerechnungArt | [EinkaufBelegKalkbasis](#einkaufbelegkalkbasis)
+Zahlungsbedingungen | string
+Lieferart | string
+Versandnummer | string | Neu ab 17.1.0
+Rabatt | string
+LieferNr | string | veraltet ab 16.0.1, entfällt ab 17.0.0
+Referenz | string | Neu ab 16.0.1, (überschreibt LieferNr)
+Lagerbuchung | boolean
+EinkaufVorbeleg_ID | string | Benutzung für Weiterleitung, nicht ändern
+EinkaufbelegPositionItemList | [EinkaufbelegPositionAddItem](#einkaufbelegpositionadditem)[] | Array vom Typ EinkaufbelegPositionAddItem
+
+### EinkaufbelegPositionAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Nummer | string
+PosNrManuell | string
+EinkaufbelegPositionArt | [EinkaufbelegPositionArt](#einkaufbelegpositionart)
+Artikel_ID | string
+ArtikelArt | string
+ArtikelNr | string
+Warengruppe | string
+Menge | float (0.0)
+Beschreibung | string
+Bezeichnung | string
+Einheit | string
+Kostenstelle | string
+Rabatt | string
+EinzelPreisBruttoFW | string
+EinzelPreisNettoFW | string
+Aufwandskonto | integer
+EinkaufVorbelegPosition_ID | string | Wird für Weiterleitung verwendet, nicht ändern
+
+### EinkaufbelegPrintItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Name | string
+Dateigroesse | integer
+Dateityp | string
+DatenBASE64 | string | Raw-Daten in BASE64-Kodierung
+
+## Funktionsliste von Einkaufsbelege
+
+### einkaufbelegFilterTemplate
+
+Vorlage für Einkaufbeleg-Filter
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegFilterTemplateResponse": {
+    "ReturnData": {
+      "EinkaufbelegFilter": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegList
+
+Auflistung Einkaufbelege
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegList": {
+    "EinkaufbelegFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegListResponse": {
+    "ReturnData": {
+      "EinkaufbelegListitem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### einkaufbelegGet
+
+Liefert Details eines Einkaufbeleg
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegGet": {
+    "Einkaufbeleg_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegGetResponse": {
+    "ReturnData": {
+      "EinkaufbelegItem": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegTemplate
+
+liefert EinkaufbelegAddItem als Vorlage
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegTemplate": {
+    "EinkaufbelegArt":  ... ,	// integer (optional)
+    "Adresse_ID": "..." ,	// string (optional)
+    "ArtikelAddPostenList": {
+      "ArtikelAddPosten": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegTemplateResponse": {
+    "ReturnData": {
+      "EinkaufbelegAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegDuplikatTemplate
+
+Vorlage für einen duplizierten Einkaufbeleg
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegDuplikatTemplate": {
+    "Einkaufbeleg_ID": "..." ,	// string
+    "Adresse_ID": "..." 	// string (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegDuplikatTemplateResponse": {
+    "ReturnData": {
+      "EinkaufbelegAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegWeiterleitungTemplate
+
+Vorlage für einen weitergeleiteten Einkaufbeleg
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegWeiterleitungTemplate": {
+    "Einkaufbeleg_ID": "..." ,	// string
+    "EinkaufbelegArt":  ... 	// integer
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegWeiterleitungTemplateResponse": {
+    "ReturnData": {
+      "EinkaufbelegAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegPositionTemplate
+
+liefert EinkaufbelegPositionAddItem als Vorlage
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegPositionTemplate": {
+    "Artikel_ID": "..." ,	// string (optional)
+    "Adresse_ID": "..." ,	// string (optional)
+    "Artikelmenge":  ... 	// integer (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegPositionTemplateResponse": {
+    "ReturnData": {
+      "EinkaufbelegPositionAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegPreview
+
+berechnet einen Einkaufbeleg ohne zu sichern
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegPreview": {
+    "EinkaufbelegAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegPreviewResponse": {
+    "ReturnData": {
+      "EinkaufbelegItem": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegAdd
+
+fügt einen neuen Einkaufbeleg hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegAdd": {
+    "EinkaufbelegAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegWeiterleitung
+
+fügt einen weitergeleiteten Einkaufbeleg hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegWeiterleitung": {
+    "EinkaufbelegAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegWeiterleitungResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegDelete
+
+löscht einen Einkaufbeleg
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegDelete": {
+    "Einkaufbeleg_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegDeleteResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegAddAttachment
+
+fügt ein Attachment einem Einkaufbeleg hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegAddAttachment": {
+    "Einkaufbeleg_ID": "..." ,	// string
+    "AttachmentAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegAddAttachmentResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### einkaufbelegPrintPDF
+
+liefert einen Einkaufbeleg als PDF
+
+Aufruf:
+<pre class="center-column">
+{
+  "einkaufbelegPrintPDF": {
+    "Einkaufbeleg_ID": "..." ,	// string
+    "DruckformularName": "..." ,	// string
+    "MarkAsPrinted":  ... 	// boolean (true|false)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "einkaufbelegPrintPDFResponse": {
+    "ReturnData": {
+      "EinkaufbelegPrintItem": {...}
+    }
+  }
+}
+</pre>

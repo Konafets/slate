@@ -1,0 +1,242 @@
+# Buchungen
+
+## Datenstrukturen von Buchungen
+
+### BuchungStatus
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+BuchungStatus | integer | <ul><li>1 = Nicht festgeschrieben</li><li>2 = Festgeschrieben</li><li>4 = Alle</li></ul>
+
+### BuchungFilter
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Suchtext | string
+DatumVon | date<br>(yyyy-mm-dd)
+DatumBis | date<br>(yyyy-mm-dd)
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+BelegNr | string
+Konto | integer
+KontoSoll | integer
+KontoHaben | integer
+
+### BuchungListItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Buchung_ID | string
+Datum | string
+Text | string
+Status | [BuchungStatus](#buchungstatus) | veraltet, nicht mehr benutzen
+Summe | string
+SummeFW | string
+BelegNr | string
+
+### BuchungItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Buchung_ID | string
+Datum | string
+Text | string
+Status | [BuchungStatus](#buchungstatus) | veraltet, nicht mehr benutzen
+Summe | string
+SummeFW | string
+BelegNr | string
+EingabeDatum | string
+Referenz | string
+Notizen | string
+KontoSoll | integer
+KontoHaben | integer
+Waehrung | string
+Kurs | string
+Steuersatz | string
+FestschreibStatus | [FestschreibStatus](#festschreibstatus)
+BuchungJournalItemList| [BuchungJournalItem](#buchungjournalitem)[] | Array vom Typ BuchungJournalItem, Neu ab Version 18.1.0
+AttachmentIDList | string[] | <i class="label label-info">read-only</i>
+
+### BuchungAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Datum | string
+Text | string
+BelegNr | string
+Referenz | string
+Notizen | string
+Waehrung | string
+Kurs | string
+BuchungPositionItemList | [BuchungPositionAddItem](#buchungpositionadditem)[] | Array vom Typ BuchungPositionAddItem
+
+### BuchungPositionAddItem
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Betrag | string
+KontoSoll | integer
+KontoHaben | integer
+Kostenstelle1 | string
+Kostenstelle2 | string
+Steuersatz | string
+Text | string
+BuchungBetragBasis | integer | derzeit nicht in Benutzung
+
+### BuchungJournalItem
+Neu ab Version 18.1.0
+
+Name           | Datentyp       | Bemerkungen
+-------------- | -------------- | --------------
+Journalnummer | integer
+Konto | integer
+Kontobezeichnung | string
+BetragSoll | string
+BetragHaben | string
+Steuersatz | integer
+Text | string
+Kostenstelle1 | string
+Kostenstelle2 | string
+FW_Soll | string
+FW_Haben | string
+
+## Funktionsliste von Buchungen
+
+### buchungFilterTemplate
+
+Vorlage für Buchung-Filter
+
+Aufruf:
+<pre class="center-column">
+{
+  "buchungFilterTemplate":""
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "buchungFilterTemplateResponse": {
+    "ReturnData": {
+      "BuchungFilter": {...}
+    }
+  }
+}
+</pre>
+
+### buchungList
+
+Listet alle Buchungen
+
+Aufruf:
+<pre class="center-column">
+{
+  "buchungList": {
+    "BuchungFilter":  ... 	// (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "buchungListResponse": {
+    "ReturnData": {
+      "BuchungListItem": [ {}, ... ]
+    }
+  }
+}
+</pre>
+
+### buchungGet
+
+Liefert Eigenschaften einer Buchung
+
+Aufruf:
+<pre class="center-column">
+{
+  "buchungGet": {
+    "Buchung_ID": "..." 	// string
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "buchungGetResponse": {
+    "ReturnData": {
+      "BuchungItem": {...}
+    }
+  }
+}
+</pre>
+
+### buchungTemplate
+
+liefert BuchungAddItem als Vorlage
+
+Aufruf:
+<pre class="center-column">
+{
+  "buchungTemplate": {
+    "PositionenAnzahl":  ... 	// integer (optional)
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "buchungTemplateResponse": {
+    "ReturnData": {
+      "BuchungAddItem": {...}
+    }
+  }
+}
+</pre>
+
+### buchungAdd
+
+fügt neue Buchung hinzu
+
+Hinweis: Standardbuchungen enthalten ein BuchungPositionAddItem
+Mehrere BuchungPositionAddItem werden für Splitt-Buchungen verwendet
+
+Aufruf:
+<pre class="center-column">
+{
+  "buchungAdd": {
+    "BuchungAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "buchungAddResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
+
+### buchungAddAttachment
+
+fügt ein Attachment einer Buchung hinzu
+
+Aufruf:
+<pre class="center-column">
+{
+  "buchungAddAttachment": {
+    "Buchung_ID": "..." ,	// string
+    "AttachmentAddItem":  ...
+  }
+}
+</pre>
+
+Rückgabe:
+<pre class="center-column">
+{
+  "buchungAddAttachmentResponse": {
+    "ReturnData": {
+      "[ReturnStatus](#returnstatus)": {...}
+    }
+  }
+}
+</pre>
