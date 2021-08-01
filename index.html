@@ -3337,7 +3337,25 @@ Stellvertretend sind diese Abläufe im Modul Verkaufsbelege genauer beschrieben.
   }
 }
 </pre></p>
-<h3 id='adresselist'>adresseList</h3>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">"http://127.0.0.1:8084/monkeyOfficeConnectJSON"</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'mbl-ident: 4F01644397CE0566C14498B2'</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'Content-Type: text/plain; charset=utf-8'</span> <span class="se">\</span>
+     <span class="nt">-u</span> <span class="s1">'stefano.kowalke:aJQQmTd47adpuY34hS8K'</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s1">$'{ "adresseFilterTemplate": "" }'</span>
+</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"adresseFilterTemplateResponse"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ReturnData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"AdresseFilter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Suchtext"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Matchcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"AdresseKategorie"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"LieferantenStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"KundenStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='adresselist'>adresseList</h3>
 <p>Liefert alle Adressen als Liste</p>
 
 <p>Aufruf:
@@ -12009,7 +12027,40 @@ neu ab Version 17.2
      <span class="nt">-H</span> <span class="s1">'Content-Type: text/plain; charset=utf-8'</span> <span class="se">\</span>
      <span class="nt">-u</span> <span class="s1">'user:password'</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s2">"{ "</span>apisessioninfoGet<span class="s2">":"" }"</span>
-</code></pre></div>
+</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"apisessioninfoGetResponse"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ReturnData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"apisessionInfoItem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"App_Datenbank"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cubeSQL@localhost:port:user:Business.sdb"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_DBSchemaVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">91</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Firma_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Benutzer_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"User_Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user.name"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"UserAccessItemList"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"UserAccessItem"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"Modul_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apiinfo"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"ModulName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"API Information"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"Zugriff"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"Anlegen"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"Aendern"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"Loeschen"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"Modul_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"firmen"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"ModulName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Firmen"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"Zugriff"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"Anlegen"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"Aendern"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"Loeschen"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
