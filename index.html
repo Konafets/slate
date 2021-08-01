@@ -1127,7 +1127,7 @@ Stellvertretend sind diese Abläufe im Modul Verkaufsbelege genauer beschrieben.
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">"https://ipdresse:port/monkeyOfficeConnectJSON"</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">'mbl-ident: 02406B7F374E1C9F0D8E2A85'</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">'Content-Type: text/plain; charset=utf-8'</span> <span class="se">\</span>
-     <span class="nt">-u</span> <span class="s1">'stefano.kowalke:aJQQmTd47adpuY34hS8K'</span> <span class="se">\</span>
+     <span class="nt">-u</span> <span class="s1">'user:password'</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s1">$'{"firmaGet": ""}'</span>
 </code></pre></div>
 <blockquote>
@@ -11965,7 +11965,29 @@ neu ab Version 17.2
   }
 }
 </pre></p>
-<h3 id='apisessioninfoget'>apisessionInfoGet</h3>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">"http://127.0.0.1:8084/monkeyOfficeConnectJSON"</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'Content-Type: text/plain; charset=utf-8'</span> <span class="se">\</span>
+     <span class="nt">-u</span> <span class="s1">'user:password'</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s2">"{ "</span>apiInfoGet<span class="s2">": "" }"</span>
+</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"apiInfoGetResponse"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ReturnData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"apiInfoItem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"App_Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MonKey Office Connect"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_Homepage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.monkey-office.de"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_Email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"info@monkey-office.de"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_MajorVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_MinorVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_BugVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_Build"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_APISchemaVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">91</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_CopyRight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"© 1997-2020 ProSaldo GmbH"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"App_NewVersion"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='apisessioninfoget'>apisessionInfoGet</h3>
 <p>Infos zur aktuellen Session</p>
 
 <p>Aufruf:
@@ -11983,7 +12005,11 @@ neu ab Version 17.2
   }
 }
 </pre></p>
-
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">"http://127.0.0.1:8084/monkeyOfficeConnectJSON"</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'Content-Type: text/plain; charset=utf-8'</span> <span class="se">\</span>
+     <span class="nt">-u</span> <span class="s1">'user:password'</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s2">"{ "</span>apisessioninfoGet<span class="s2">":"" }"</span>
+</code></pre></div>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
