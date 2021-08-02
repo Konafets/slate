@@ -3373,12 +3373,65 @@ Stellvertretend sind diese Abläufe im Modul Verkaufsbelege genauer beschrieben.
   &quot;adresseListResponse&quot;:
   {
     &quot;ReturnData&quot;: {
-      &quot;AdresseListItem&quot;: [{}, {}, ...]
+      &quot;<a href="#adresselistitem">AdresseListItem</a>&quot;: [{}, {}, ...]
     }
   }
 }
 </pre></p>
-<h3 id='adresseget'>adresseGet</h3>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">"https://ipdresse:port/monkeyOfficeConnectJSON"</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'mbl-ident: 02406B7F374E1C9F0D8E2A85'</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'Content-Type: text/plain; charset=utf-8'</span> <span class="se">\</span>
+     <span class="nt">-u</span> <span class="s1">'user:password'</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s1">$'{
+            "adresseList":{
+              "AdresseFilter":{
+                "Suchtext":"",
+                "Matchcode":"",
+                "AdresseKategorie":"",
+                "LieferantenStatus":"-2",
+                "KundenStatus":"-2"
+              }
+            }
+          }'</span>
+</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"adresseListResponse"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ReturnData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"AdresseListItem"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"Adresse_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"480C644B85E2297DB23598B243130C"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Matchcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIEFERANT"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"AdressNr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADR-00001"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Kategorie"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"KundenStatus"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"LieferantenStatus"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Firma1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lieferant"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Vorname"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Nachname"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Plz"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Ort"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Strasse"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_StrasseNr"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"Adresse_ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"480C644B85E2297DB23598B147130C"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Matchcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KUNDE"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"AdressNr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADR-IT-00002"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Kategorie"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"KundenStatus"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"LieferantenStatus"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Firma1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kunde"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Vorname"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Nachname"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Plz"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Ort"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_Strasse"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RA_StrasseNr"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='adresseget'>adresseGet</h3>
 <p>Liefert Details einer Adresse</p>
 
 <p>Aufruf:
